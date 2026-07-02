@@ -2,8 +2,8 @@
   "version": 2,
   "cleanUrls": true,
   "rewrites": [
-    { "source": "/whitepaper.pdf", "destination": "/api/index.ts" },
-    { "source": "/api/(.*)", "destination": "/api/index.ts" },
+    { "source": "/whitepaper.pdf", "destination": "/api" },
+    { "source": "/api/(.*)", "destination": "/api" },
     { "source": "/(.*)", "destination": "/index.html" }
   ]
 }
