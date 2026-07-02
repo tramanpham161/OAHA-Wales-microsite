@@ -3,7 +3,6 @@ import path from "path";
 import fs from "fs";
 import dotenv from "dotenv";
 import { GoogleGenAI, Type } from "@google/genai";
-import { createServer as createViteServer } from "vite";
 import { Resend } from "resend";
 import PDFDocument from "pdfkit";
 import { WHITEPAPER_PAGES } from "./src/lib/whitepaper-data";
@@ -624,7 +623,22 @@ app.post("/api/send-email", async (req, res) => {
 
     if (emailResponse.error) {
       console.error("Resend API returned error details:", emailResponse.error);
-      return res.status(500).json({ error: emailResponse.error.message || "Failed to send email via Resend API." });
+      const errMsg = emailResponse.error.message || "";
+      let friendlyMessage = errMsg;
+
+      // Detect sandbox and domain verification limitations to guide the user
+      if (
+        errMsg.toLowerCase().includes("verify") ||
+        errMsg.toLowerCase().includes("domain") ||
+        errMsg.toLowerCase().includes("sandbox") ||
+        errMsg.toLowerCase().includes("restricted") ||
+        errMsg.toLowerCase().includes("authorized") ||
+        errMsg.toLowerCase().includes("validation")
+      ) {
+        friendlyMessage = `Resend Configuration Error: "${errMsg}". \n\nTroubleshooting: If you are using a free Resend sandbox account or the default 'onboarding@resend.dev' sender, you can only send emails to your own registered Resend email address. To send inquiries successfully to 'info.oaha.uk@gmail.com', you must first verify the 'oaha.uk' domain (or your custom sending domain) inside your Resend.com Dashboard, or add the destination email as an Authorized Recipient.`;
+      }
+
+      return res.status(500).json({ error: friendlyMessage });
     }
 
     res.json({ success: true, messageId: emailResponse.data?.id });
@@ -649,6 +663,7 @@ async function startServer() {
     });
   } else {
     console.log(`Starting Vite dev server (isProd: ${isProd}, distExists: ${distExists})`);
+    const { createServer: createViteServer } = await import("vite");
     const vite = await createViteServer({
       server: { middlewareMode: true },
       appType: "spa",
