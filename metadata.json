@@ -1,0 +1,6 @@
+{
+  "name": "OAHA | Accelerating Social Mobility in Wales",
+  "description": "A place-based collaboration helping Wales connect investment, skills, employers, community insight and youth voice into clearer routes for young people.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
