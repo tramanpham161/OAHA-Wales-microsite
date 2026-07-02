@@ -1,0 +1,55 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  --font-display: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+
+  /* Custom 6-Color Brand Palette from uploaded image */
+  --color-brand-teal: #2bb7ba;
+  --color-brand-orange: #ff9900;
+  --color-brand-green: #3ab03a;
+  --color-brand-bronze: #986430;
+  --color-brand-grey: #969696;
+  --color-brand-navy: #2e536b;
+}
+
+/* Elegant scroll behaviors */
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: #faf9f6;
+  color: #1a2521;
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Custom animation classes */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* Custom styling tokens for oaha.uk aesthetic */
+.oaha-bg-sand {
+  background-color: #faf9f6;
+}
+
+.oaha-text-forest {
+  color: #3AB03A;
+}
+
+.oaha-bg-forest {
+  background-color: #3AB03A;
+}
+
+.oaha-border-forest {
+  border-color: #3AB03A;
+}
