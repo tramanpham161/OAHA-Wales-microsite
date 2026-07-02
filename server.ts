@@ -637,18 +637,23 @@ app.post("/api/send-email", async (req, res) => {
 
 // Setup Vite development middlewares or service static client build in production
 async function startServer() {
-  if (process.env.NODE_ENV !== "production") {
+  const isProd = process.env.NODE_ENV === "production";
+  const distPath = path.join(process.cwd(), 'dist');
+  const distExists = fs.existsSync(distPath);
+
+  if (isProd && distExists) {
+    console.log("Serving static assets from production dist folder.");
+    app.use(express.static(distPath));
+    app.get('*', (req, res) => {
+      res.sendFile(path.join(distPath, 'index.html'));
+    });
+  } else {
+    console.log(`Starting Vite dev server (isProd: ${isProd}, distExists: ${distExists})`);
     const vite = await createViteServer({
       server: { middlewareMode: true },
       appType: "spa",
     });
     app.use(vite.middlewares);
-  } else {
-    const distPath = path.join(process.cwd(), 'dist');
-    app.use(express.static(distPath));
-    app.get('*', (req, res) => {
-      res.sendFile(path.join(distPath, 'index.html'));
-    });
   }
 
   app.listen(PORT, "0.0.0.0", () => {
