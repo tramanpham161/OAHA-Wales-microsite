@@ -614,7 +614,7 @@ export default function App() {
               <div className="bg-white border border-[#969696]/20 p-6 sm:p-8 rounded-2xl max-w-3xl mx-auto text-center space-y-2 shadow-xs font-sans">
                 <span className="text-[10px] font-mono font-bold uppercase tracking-widest text-[#FF9900]">Key Takeaway</span>
                 <p className="text-base text-[#51615a] leading-relaxed max-w-2xl mx-auto font-sans font-medium">
-                  This is why the next phase must connect growth, skills, employers, schools, families, community trust and youth voice; so Wales strengthens the pathways that already exist, rather than adding another disconnected programme.
+                  This is why the next phase must connect evidence, growth, skills, employers, schools, families, community trust and youth voice; so Wales strengthens the pathways that already exist, rather than adding another disconnected programme.
                 </p>
               </div>
 
