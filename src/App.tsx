@@ -103,7 +103,7 @@ export default function App() {
     {
       icon: BarChart3,
       title: "Evidence for Regional Action",
-      desc: "Evidence from UNGC Network UK and the Social Mobility Commission points to regional coordination, local pathways and employer action.",
+      desc: "Evidence from partners, open data and lived experience points to the need for a clearer shared picture of what exists, where the gaps are, and where coordinated action could make the greatest difference.",
       bgClass: "bg-[#969696]/10",
       textClass: "text-[#969696]",
       groupHoverBg: "group-hover:bg-[#969696]",
@@ -354,7 +354,7 @@ export default function App() {
                     This work is helping build the connective infrastructure between economic growth, employer demand, local provision and trusted community pathways, so opportunity becomes easier to see, access and move through.
                   </p>
                   <p>
-                    This is for employers, community organisations, charities, schools, colleges, funders and public bodies who want growth in Wales to translate into real pathways for young people.
+                    We are now moving from insight into action: strengthening the evidence base, testing priorities with partners and shaping the next stage of place-based delivery.
                   </p>
                 </div>
                 
@@ -376,7 +376,7 @@ export default function App() {
                     }}
                     className="px-8 py-3.5 border-2 border-[#2E536B] text-[#2E536B] text-xs font-semibold uppercase tracking-widest hover:bg-[#2E536B]/5 transition-all text-center cursor-pointer flex items-center justify-center gap-1.5 rounded-xs"
                   >
-                    <span>GET INVOLVED IN PHASE 2</span>
+                    <span>SUPPORT THE NEXT PHASE</span>
                     <ArrowDown className="w-3.5 h-3.5 text-[#3AB03A]" />
                   </button>
                 </div>
@@ -407,6 +407,9 @@ export default function App() {
                   </h2>
                   <p className="text-sm sm:text-base text-[#51615a] leading-relaxed">
                     Policy, funding, business need and youth voice are converging. Wales has a rare opportunity to make sure regional growth is not just planned at system level, but seen and felt by young people, families and communities.
+                  </p>
+                  <p className="text-sm sm:text-base text-[#51615a] leading-relaxed">
+                    The next step is to connect future skills, employer demand, education pathways and community support so young people can understand the opportunities growing around them early enough to prepare for them.
                   </p>
                 </div>
 
