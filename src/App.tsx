@@ -487,7 +487,7 @@ export default function App() {
                         <span className="text-xs uppercase tracking-wider font-extrabold text-slate-400">September</span>
                       </div>
                       <div className="pl-11 md:pl-0 space-y-1.5 flex-1 flex flex-col justify-start">
-                        <div className="md:h-8 flex items-start">
+                        <div className="md:h-12 flex items-start">
                           <h4 className="text-sm font-bold text-slate-800 uppercase tracking-wide leading-snug group-hover:text-[#3AB03A] transition-colors">
                             Cardiff UNGC roundtable
                           </h4>
@@ -507,7 +507,7 @@ export default function App() {
                         <span className="text-xs uppercase tracking-wider font-extrabold text-slate-400">December</span>
                       </div>
                       <div className="pl-11 md:pl-0 space-y-1.5 flex-1 flex flex-col justify-start">
-                        <div className="md:h-8 flex items-start">
+                        <div className="md:h-12 flex items-start">
                           <h4 className="text-sm font-bold text-slate-800 uppercase tracking-wide leading-snug group-hover:text-[#3AB03A] transition-colors">
                             Call to Action
                           </h4>
@@ -527,7 +527,7 @@ export default function App() {
                         <span className="text-xs uppercase tracking-wider font-extrabold text-slate-400">Jan–Feb</span>
                       </div>
                       <div className="pl-11 md:pl-0 space-y-1.5 flex-1 flex flex-col justify-start">
-                        <div className="md:h-8 flex items-start">
+                        <div className="md:h-12 flex items-start">
                           <h4 className="text-sm font-bold text-slate-800 uppercase tracking-wide leading-snug group-hover:text-[#3AB03A] transition-colors">
                             Phase 1 discovery
                           </h4>
@@ -547,7 +547,7 @@ export default function App() {
                         <span className="text-xs uppercase tracking-wider font-extrabold text-slate-400">March</span>
                       </div>
                       <div className="pl-11 md:pl-0 space-y-1.5 flex-1 flex flex-col justify-start">
-                        <div className="md:h-8 flex items-start">
+                        <div className="md:h-12 flex items-start">
                           <h4 className="text-sm font-bold text-slate-800 uppercase tracking-wide leading-snug group-hover:text-[#3AB03A] transition-colors">
                             Working session
                           </h4>
@@ -567,7 +567,7 @@ export default function App() {
                         <span className="text-xs uppercase tracking-wider font-extrabold text-[#FF9900]">May/June</span>
                       </div>
                       <div className="pl-11 md:pl-0 space-y-1.5 flex-1 flex flex-col justify-start">
-                        <div className="md:h-8 flex items-start">
+                        <div className="md:h-12 flex items-start">
                           <h4 className="text-sm font-bold text-[#FF9900] uppercase tracking-wide leading-snug">
                             Youth Validation and Partner Design
                           </h4>
@@ -713,7 +713,7 @@ export default function App() {
                     return (
                       <div key={idx} className={`bg-white border-t-[3px] ${color.border} border-x border-b border-[#969696]/20 ${color.hoverBorder} p-6 space-y-3 rounded-2xl transition-all duration-300 shadow-xs hover:shadow-md text-left flex flex-col justify-start h-full`}>
                         <span className={`text-xs font-mono font-bold tracking-wider block ${color.text}`}>{s.num}</span>
-                        <h4 className="font-medium text-slate-800 text-sm uppercase tracking-wider leading-snug">{s.title}</h4>
+                        <h4 className="font-medium text-slate-800 text-sm uppercase tracking-wider leading-snug md:min-h-[3rem]">{s.title}</h4>
                         <p className="text-sm text-[#51615a] leading-relaxed">
                           {s.desc}
                         </p>
@@ -1150,11 +1150,11 @@ export default function App() {
                   {/* Tabs Selector Bar */}
                   <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-2 border-b border-[#969696]/20 pb-px">
                     {[
-                      { id: "employers", label: "Employers", activeColor: "border-[#2BB7BA] text-[#2BB7BA]", hoverColor: "hover:text-[#2BB7BA] hover:border-[#2BB7BA]/20" },
-                      { id: "partners", label: "Community & Charity Partners", activeColor: "border-[#FF9900] text-[#FF9900]", hoverColor: "hover:text-[#FF9900] hover:border-[#FF9900]/20" },
-                      { id: "education", label: "Schools, Colleges & Universities", activeColor: "border-[#3AB03A] text-[#3AB03A]", hoverColor: "hover:text-[#3AB03A] hover:border-[#3AB03A]/20" },
-                      { id: "government", label: "Government & Public Bodies", activeColor: "border-[#986430] text-[#986430]", hoverColor: "hover:text-[#986430] hover:border-[#986430]/20" },
-                      { id: "funders", label: "Funders & Strategic Partners", activeColor: "border-[#2E536B] text-[#2E536B]", hoverColor: "hover:text-[#2E536B] hover:border-[#2E536B]/20" }
+                      { id: "employers", label: "Employers", activeColor: "border-[#2BB7BA] text-[#2BB7BA]", activeBg: "bg-[#2BB7BA]/10", hoverBg: "hover:bg-[#2BB7BA]/5", hoverColor: "hover:text-[#2BB7BA] hover:border-[#2BB7BA]/20" },
+                      { id: "partners", label: "Community & Charity Partners", activeColor: "border-[#FF9900] text-[#FF9900]", activeBg: "bg-[#FF9900]/10", hoverBg: "hover:bg-[#FF9900]/5", hoverColor: "hover:text-[#FF9900] hover:border-[#FF9900]/20" },
+                      { id: "education", label: "Schools, Colleges & Universities", activeColor: "border-[#3AB03A] text-[#3AB03A]", activeBg: "bg-[#3AB03A]/10", hoverBg: "hover:bg-[#3AB03A]/5", hoverColor: "hover:text-[#3AB03A] hover:border-[#3AB03A]/20" },
+                      { id: "government", label: "Government & Public Bodies", activeColor: "border-[#986430] text-[#986430]", activeBg: "bg-[#986430]/10", hoverBg: "hover:bg-[#986430]/5", hoverColor: "hover:text-[#986430] hover:border-[#986430]/20" },
+                      { id: "funders", label: "Funders & Strategic Partners", activeColor: "border-[#2E536B] text-[#2E536B]", activeBg: "bg-[#2E536B]/10", hoverBg: "hover:bg-[#2E536B]/5", hoverColor: "hover:text-[#2E536B] hover:border-[#2E536B]/20" }
                     ].map((tab) => {
                       const isActive = activeInvolvedTab === tab.id;
                       return (
@@ -1187,10 +1187,10 @@ export default function App() {
                                     : "Funder & Strategic Partner";
                             setContactOrgType(guessedType);
                           }}
-                          className={`px-3 py-3 text-[10px] uppercase font-bold tracking-wider transition-all duration-200 border-b-2 text-center -mb-px outline-none ${
+                          className={`px-3 py-3 text-[10px] uppercase font-bold tracking-wider transition-all duration-200 border-b-2 text-center -mb-px outline-none rounded-t-lg ${
                             isActive
-                              ? tab.activeColor
-                              : `border-transparent text-[#51615a] ${tab.hoverColor}`
+                              ? `${tab.activeColor} ${tab.activeBg}`
+                              : `border-transparent text-[#51615a] bg-transparent ${tab.hoverBg} ${tab.hoverColor}`
                           }`}
                         >
                           {tab.label}
