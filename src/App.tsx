@@ -756,6 +756,10 @@ export default function App() {
                 <p className="text-sm sm:text-base text-[#51615a] leading-relaxed">
                   For employers, this means clearer routes to future talent. For charities and community organisations, it means lived insight shaping decisions. For public bodies and funders, it means better evidence about where shared action can create the greatest impact.
                 </p>
+
+                <p className="text-sm sm:text-base text-[#51615a] leading-relaxed">
+                  The next stage is about making that shared picture clearer, so partners can make better decisions about where to focus time, funding and delivery.
+                </p>
                 
                 <div className="space-y-3 pt-4 border-t border-[#969696]/20">
                   <h3 className="text-sm uppercase tracking-wider font-bold text-[#51615a] border-b border-[#969696]/20 pb-2">
@@ -820,9 +824,10 @@ export default function App() {
                           stroke="#2BB7BA"
                           strokeWidth="4"
                         />
-                        <text className="fill-[#1A2521] font-sans font-extrabold text-[12px] tracking-wider" textAnchor="middle">
-                          <tspan x="110" y="115">REDUCE</tspan>
-                          <tspan x="110" y="133">DUPLICATION</tspan>
+                        <text className="fill-[#1A2521] font-sans font-extrabold text-[10px] tracking-wider" textAnchor="middle">
+                          <tspan x="110" y="105">IDENTIFY GAPS</tspan>
+                          <tspan x="110" y="123">AND</tspan>
+                          <tspan x="110" y="141">DUPLICATION</tspan>
                         </text>
 
                         {/* Top Right Quadrant - Orange */}
@@ -844,10 +849,11 @@ export default function App() {
                           stroke="#3AB03A"
                           strokeWidth="4"
                         />
-                        <text className="fill-[#1A2521] font-sans font-extrabold text-[11px] tracking-wider" textAnchor="middle">
-                          <tspan x="110" y="260">GROUND</tspan>
-                          <tspan x="110" y="278">ACTION IN</tspan>
-                          <tspan x="110" y="296">REALITY</tspan>
+                        <text className="fill-[#1A2521] font-sans font-extrabold text-[9px] tracking-wider" textAnchor="middle">
+                          <tspan x="110" y="242">GROUND ACTION</tspan>
+                          <tspan x="110" y="260">IN EVIDENCE</tspan>
+                          <tspan x="110" y="278">AND LIVED</tspan>
+                          <tspan x="110" y="296">EXPERIENCE</tspan>
                         </text>
 
                         {/* Bottom Right Quadrant - Grey */}
@@ -912,9 +918,10 @@ export default function App() {
                           stroke="#2BB7BA"
                           strokeWidth="4"
                         />
-                        <text className="fill-[#1A2521] font-sans font-extrabold text-[12px] tracking-wider" textAnchor="middle">
-                          <tspan x="110" y="115">REDUCE</tspan>
-                          <tspan x="110" y="133">DUPLICATION</tspan>
+                        <text className="fill-[#1A2521] font-sans font-extrabold text-[10px] tracking-wider" textAnchor="middle">
+                          <tspan x="110" y="105">IDENTIFY GAPS</tspan>
+                          <tspan x="110" y="123">AND</tspan>
+                          <tspan x="110" y="141">DUPLICATION</tspan>
                         </text>
 
                         {/* Top Right Quadrant - Orange */}
@@ -936,10 +943,11 @@ export default function App() {
                           stroke="#3AB03A"
                           strokeWidth="4"
                         />
-                        <text className="fill-[#1A2521] font-sans font-extrabold text-[11px] tracking-wider" textAnchor="middle">
-                          <tspan x="110" y="260">GROUND</tspan>
-                          <tspan x="110" y="278">ACTION IN</tspan>
-                          <tspan x="110" y="296">REALITY</tspan>
+                        <text className="fill-[#1A2521] font-sans font-extrabold text-[9px] tracking-wider" textAnchor="middle">
+                          <tspan x="110" y="242">GROUND ACTION</tspan>
+                          <tspan x="110" y="260">IN EVIDENCE</tspan>
+                          <tspan x="110" y="278">AND LIVED</tspan>
+                          <tspan x="110" y="296">EXPERIENCE</tspan>
                         </text>
 
                         {/* Bottom Right Quadrant - Grey */}
@@ -965,7 +973,7 @@ export default function App() {
                     <div className="grid grid-cols-1 gap-4">
                       {/* Top-Left Box Mobile */}
                       <div className="bg-white border-l-4 border-[#2BB7BA] p-4 rounded-xl shadow-sm">
-                        <span className="text-[10px] font-bold text-[#2BB7BA] uppercase tracking-wider block mb-1">01. Reduce Duplication</span>
+                        <span className="text-[10px] font-bold text-[#2BB7BA] uppercase tracking-wider block mb-1">01. Identify Gaps and Duplication</span>
                         <p className="text-xs text-[#51615a] leading-relaxed">
                           Make existing provision easier to see, understand and connect — so partners can build on what works rather than repeat it.
                         </p>
@@ -981,7 +989,7 @@ export default function App() {
 
                       {/* Bottom-Left Box Mobile */}
                       <div className="bg-white border-l-4 border-[#3AB03A] p-4 rounded-xl shadow-sm">
-                        <span className="text-[10px] font-bold text-[#3AB03A] uppercase tracking-wider block mb-1">03. Ground Action in Reality</span>
+                        <span className="text-[10px] font-bold text-[#3AB03A] uppercase tracking-wider block mb-1">03. Ground Action in Evidence and Lived Experience</span>
                         <p className="text-xs text-[#51615a] leading-relaxed">
                           Test ideas with young people, practitioners and employers before scaling, so solutions reflect lived experience and local conditions.
                         </p>
@@ -1030,7 +1038,7 @@ export default function App() {
                       We are building a shared view of the Welsh social mobility ecosystem: who is working with young people, where they operate, which stage of the journey they support, and where there may be gaps, duplication or weak handoffs.
                     </p>
                     <p>
-                      The map is not intended to judge individual organisations. It is designed to help the system see itself more clearly — so that partners can align effort, strengthen pathways and identify where collective action is needed most.
+                      The map is not intended to judge individual organisations. It is designed to help partners see the system more clearly, so they can align effort, strengthen pathways and identify where collective action is needed most.
                     </p>
                   </div>
  
@@ -1047,7 +1055,7 @@ export default function App() {
                       className="inline-flex items-center gap-2.5 px-6 py-3.5 bg-[#2E536B] hover:bg-[#2E536B]/95 text-white text-xs font-semibold uppercase tracking-widest transition-all rounded shadow-xs cursor-pointer"
                     >
                       <MapPin className="w-4 h-4 text-[#FF9900]" />
-                      <span>Contribute to the ecosystem map</span>
+                      <span>Contribute to the Ecosystem Map</span>
                     </button>
                   </div>
                 </div>
