@@ -630,7 +630,7 @@ export default function App() {
               <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start text-left font-sans">
                 <div className="lg:col-span-7 space-y-6">
                   <span className="text-xs font-bold uppercase tracking-widest text-[#FF9900] block">Strategic Document</span>
-                  <h2 className="text-3xl font-normal text-[#2E536B] tracking-tight">From Insight to Action</h2>
+                  <h2 className="text-3xl font-normal text-[#2E536B] tracking-tight">From insight to action</h2>
                   <p className="text-sm sm:text-base text-[#51615a] leading-relaxed">
                     Phase 1 has helped build a clearer view of the ecosystem, the learner journey and the points where opportunity becomes harder to see or access.
                   </p>
@@ -669,34 +669,37 @@ export default function App() {
                   </ul>
                 </div>
               </div>
- 
+
               <div className="space-y-8">
-                <div className="text-center space-y-2">
+                <div className="text-center space-y-3 max-w-2xl mx-auto">
                   <span className="text-xs font-bold uppercase tracking-widest text-[#FF9900] block">Phase 2 Roadmap</span>
+                  <p className="text-sm sm:text-base text-[#51615a] leading-relaxed">
+                    We are now in Sprint 1 of Phase 2. This phase is focused on strengthening the evidence base, testing priorities with partners and shaping pilot opportunities that could move into delivery.
+                  </p>
                 </div>
- 
+
                 {/* 4 brand-colored interactive cards */}
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 pt-4">
                   {[
                     {
                       num: "Sprint 1",
-                      title: "Consolidate ideas",
-                      desc: "Bring together Phase 1 outputs, youth insight and stakeholder feedback. Cluster ideas into concept themes and prioritise the strongest ideas for prototyping."
+                      title: "Strengthen the evidence base",
+                      desc: "Bring together Phase 1 outputs, ecosystem mapping, youth insight, employer input and available place-based data to sharpen the picture of need, provision and opportunity."
                     },
                     {
                       num: "Sprint 2",
-                      title: "Develop prototypes",
-                      desc: "Create a simple prototype canvas for each concept, covering the problem, target cohort/place, user journey, partner roles, handoffs, cost range, measures and risks."
+                      title: "Shape pilot concepts",
+                      desc: "Develop a small number of practical pilot concepts linked to the strongest opportunities, including the problem, target cohort, place, partners, outcomes and delivery conditions."
                     },
                     {
                       num: "Sprint 3",
-                      title: "Validate feasibility",
-                      desc: "Sense-check each prototype with the organisations who would deliver, refer, host or fund it."
+                      title: "Test with partners",
+                      desc: "Sense-check each pilot concept with young people, schools, employers, community organisations, funders and public bodies."
                     },
                     {
                       num: "Sprint 4",
-                      title: "Decide what moves to pilot",
-                      desc: "Score prototypes against impact, feasibility, equity, speed to test and scalability. Select one prototype for Phase 3 mobilisation."
+                      title: "Build the investment case",
+                      desc: "Prioritise what moves forward and define the funding, coordination, evidence and delivery support needed for the next stage."
                     }
                   ].map((s, idx) => {
                     const phaseColors = [
@@ -706,7 +709,7 @@ export default function App() {
                       { text: "text-[#2E536B]", bg: "bg-[#2E536B]/10", border: "border-t-[#2E536B]", hoverBorder: "hover:border-[#2E536B]" },
                     ];
                     const color = phaseColors[idx % phaseColors.length];
- 
+
                     return (
                       <div key={idx} className={`bg-white border-t-[3px] ${color.border} border-x border-b border-[#969696]/20 ${color.hoverBorder} p-6 space-y-3 rounded-2xl transition-all duration-300 shadow-xs hover:shadow-md text-left`}>
                         <span className={`text-xs font-mono font-bold tracking-wider block ${color.text}`}>{s.num}</span>
@@ -724,7 +727,7 @@ export default function App() {
               <div className="bg-white border border-[#969696]/20 p-6 sm:p-8 rounded-2xl max-w-3xl mx-auto text-center space-y-2 shadow-xs">
                 <span className="text-[11px] font-mono font-bold uppercase tracking-widest text-[#FF9900]">Phase 2 Deliverables</span>
                 <p className="text-sm sm:text-base text-[#51615a] leading-relaxed max-w-2xl mx-auto font-sans font-medium">
-                  By the end of Phase 2, partners will have 2–3 measurable prototype solutions, one recommended pilot for mobilisation, and a reporting approach that shows how place-based action can create social value, strengthen pathways and support better outcomes for young people.
+                  By the end of Phase 2, partners will have a stronger shared evidence base, 2–3 prioritised pilot opportunities and a clearer investment case for the next stage of place-based delivery.
                 </p>
               </div>
  
@@ -743,7 +746,7 @@ export default function App() {
               <div className="lg:col-span-5 space-y-4">
                 <span className="text-xs font-bold uppercase tracking-widest text-[#FF9900] block">Systemic Lens</span>
                 <h2 className="text-3xl font-normal text-[#2E536B] tracking-tight leading-tight">
-                  Why This Matters Beyond Any One Organisation
+                  Why this matters beyond any one organisation
                 </h2>
                 
                 <p className="text-sm sm:text-base text-[#51615a] leading-relaxed">
