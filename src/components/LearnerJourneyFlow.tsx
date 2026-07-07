@@ -227,7 +227,7 @@ export default function LearnerJourneyFlow() {
     {
       id: "journey-stage-1",
       title: "Visibility",
-      description: "Pathways may exist, but they are not always visible, relatable or easy to understand early enough.",
+      description: "Pathways may exist, but they are not always visible, relatable or easy to understand early enough. Young people may not always see how local growth, future jobs or employer demand connect to what they are learning now.",
       svgComponent: <StageBabySvg className="w-20 h-28 text-[#2BB7BA] mx-auto group-hover:text-[#FF9900] transition-colors duration-300" />,
       colorClass: "border-[#2BB7BA]",
       textColor: "text-[#2BB7BA]",
@@ -267,7 +267,7 @@ export default function LearnerJourneyFlow() {
     {
       id: "journey-stage-5",
       title: "Translation",
-      description: "Real jobs and employer demand do not always translate into learner awareness or pathway design.",
+      description: "Employers may understand the skills and capabilities they need, but this does not always translate into practical experiences, language or support that young people, schools and families can use.",
       svgComponent: <StageAdultSvg className="w-20 h-28 text-[#969696] mx-auto group-hover:text-[#2BB7BA] transition-colors duration-300" />,
       colorClass: "border-[#969696]",
       textColor: "text-[#969696]",
