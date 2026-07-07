@@ -1223,7 +1223,7 @@ export default function App() {
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                       {/* Full Name */}
                       <div className="space-y-1.5">
-                        <label className="block text-[10px] uppercase font-mono tracking-wider text-[#2E536B] font-bold select-none">Full Name</label>
+                        <label className="block text-[10px] uppercase font-sans tracking-wider text-[#2E536B] font-bold select-none">Full Name</label>
                         <input
                           type="text"
                           required
@@ -1236,7 +1236,7 @@ export default function App() {
 
                       {/* Organisation */}
                       <div className="space-y-1.5">
-                        <label className="block text-[10px] uppercase font-mono tracking-wider text-[#2E536B] font-bold select-none">Organisation</label>
+                        <label className="block text-[10px] uppercase font-sans tracking-wider text-[#2E536B] font-bold select-none">Organisation</label>
                         <input
                           type="text"
                           required
@@ -1249,7 +1249,7 @@ export default function App() {
 
                       {/* Role / job title */}
                       <div className="space-y-1.5">
-                        <label className="block text-[10px] uppercase font-mono tracking-wider text-[#2E536B] font-bold select-none">Role / Job Title</label>
+                        <label className="block text-[10px] uppercase font-sans tracking-wider text-[#2E536B] font-bold select-none">Role / Job Title</label>
                         <input
                           type="text"
                           required
@@ -1262,7 +1262,7 @@ export default function App() {
 
                       {/* Organisation type */}
                       <div className="space-y-1.5">
-                        <label className="block text-[10px] uppercase font-mono tracking-wider text-[#2E536B] font-bold select-none">Organisation Type</label>
+                        <label className="block text-[10px] uppercase font-sans tracking-wider text-[#2E536B] font-bold select-none">Organisation Type</label>
                         <select
                           value={contactOrgType}
                           onChange={(e) => setContactOrgType(e.target.value)}
@@ -1279,7 +1279,7 @@ export default function App() {
 
                       {/* Email Address */}
                       <div className="space-y-1.5">
-                        <label className="block text-[10px] uppercase font-mono tracking-wider text-[#2E536B] font-bold select-none">Email Address</label>
+                        <label className="block text-[10px] uppercase font-sans tracking-wider text-[#2E536B] font-bold select-none">Email Address</label>
                         <input
                           type="email"
                           required
@@ -1292,7 +1292,7 @@ export default function App() {
 
                       {/* Phone Number */}
                       <div className="space-y-1.5">
-                        <label className="block text-[10px] uppercase font-mono tracking-wider text-[#2E536B] font-bold select-none">Phone Number</label>
+                        <label className="block text-[10px] uppercase font-sans tracking-wider text-[#2E536B] font-bold select-none">Phone Number</label>
                         <input
                           type="tel"
                           required
@@ -1305,7 +1305,7 @@ export default function App() {
 
                       {/* How would you like to get involved? */}
                       <div className="col-span-full space-y-1.5">
-                        <label className="block text-[10px] uppercase font-mono tracking-wider text-[#2E536B] font-bold select-none">
+                        <label className="block text-[10px] uppercase font-sans tracking-wider text-[#2E536B] font-bold select-none">
                           How would you like to get involved?
                         </label>
                         <select
@@ -1329,7 +1329,7 @@ export default function App() {
 
                       {/* Message / anything useful to know */}
                       <div className="col-span-full space-y-1.5">
-                        <label className="block text-[10px] uppercase font-mono tracking-wider text-[#2E536B] font-bold select-none">
+                        <label className="block text-[10px] uppercase font-sans tracking-wider text-[#2E536B] font-bold select-none">
                           Message / anything useful to know
                         </label>
                         <textarea
@@ -1369,7 +1369,7 @@ export default function App() {
           <footer className="bg-white py-16 px-6 border-t border-[#969696]/30">
             <div className="max-w-4xl mx-auto text-center space-y-6">
               <p className="text-xs text-[#51615a] leading-relaxed max-w-lg mx-auto">
-                This microsite is a simple progress space for OAHA. Return to our main site at{" "}
+                This is a public progress update on a place-based collaboration helping Wales connect growth, skills, employers, community insight and youth voice into clearer routes for young people. Return to our main site at{" "}
                 <a
                   href="https://oaha.uk"
                   target="_blank"
