@@ -711,7 +711,7 @@ export default function App() {
                     const color = phaseColors[idx % phaseColors.length];
 
                     return (
-                      <div key={idx} className={`bg-white border-t-[3px] ${color.border} border-x border-b border-[#969696]/20 ${color.hoverBorder} p-6 space-y-3 rounded-2xl transition-all duration-300 shadow-xs hover:shadow-md text-left`}>
+                      <div key={idx} className={`bg-white border-t-[3px] ${color.border} border-x border-b border-[#969696]/20 ${color.hoverBorder} p-6 space-y-3 rounded-2xl transition-all duration-300 shadow-xs hover:shadow-md text-left flex flex-col justify-start h-full`}>
                         <span className={`text-xs font-mono font-bold tracking-wider block ${color.text}`}>{s.num}</span>
                         <h4 className="font-medium text-slate-800 text-sm uppercase tracking-wider leading-snug">{s.title}</h4>
                         <p className="text-sm text-[#51615a] leading-relaxed">
@@ -743,7 +743,7 @@ export default function App() {
             <div className="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
               
               {/* Left Column: Cased Title & Stakeholder Bullet Points */}
-              <div className="lg:col-span-5 space-y-4">
+              <div className="lg:col-span-7 space-y-4">
                 <span className="text-xs font-bold uppercase tracking-widest text-[#FF9900] block">Systemic Lens</span>
                 <h2 className="text-3xl font-normal text-[#2E536B] tracking-tight leading-tight">
                   Why this matters beyond any one organisation
@@ -766,7 +766,7 @@ export default function App() {
                     What Stakeholders Can Expect in Return
                   </h3>
                   
-                  <ul className="space-y-3">
+                  <ul className="grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-3">
                     <li className="flex items-start gap-3">
                       <span className="w-1.5 h-1.5 rounded-full bg-[#FF9900] mt-2 shrink-0"></span>
                       <p className="text-sm text-[#51615a] leading-relaxed">
@@ -807,204 +807,76 @@ export default function App() {
                 </div>
               </div>
 
-              {/* Right Column: Reconstructed Infographic Diagram matching the uploaded blueprint */}
-              <div className="lg:col-span-7 w-full flex items-center justify-center">
-                <div className="w-full bg-[#faf9f6]/40 border border-[#969696]/20 p-6 rounded-3xl shadow-sm">
-                  
-                  {/* Desktop/Tablet version: Perfect replica of the infographic layout */}
-                  <div className="hidden md:block relative w-full h-[520px] mx-auto select-none overflow-visible">
-                    
-                    {/* Central 4-Quadrant Circle Graphic */}
-                    <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[280px] h-[280px] lg:w-[320px] lg:h-[320px] z-10">
-                      <svg viewBox="0 0 400 400" className="w-full h-full filter drop-shadow hover:scale-[1.01] transition-transform duration-300 overflow-visible">
-                        {/* Top Left Quadrant - Teal */}
-                        <path
-                          d="M 200 200 L 200 20 A 180 180 0 0 0 20 200 Z"
-                          fill="#e6faf9"
-                          stroke="#2BB7BA"
-                          strokeWidth="4"
-                        />
-                        <text className="fill-[#1A2521] font-sans font-extrabold text-[10px] tracking-wider" textAnchor="middle">
-                          <tspan x="110" y="105">IDENTIFY GAPS</tspan>
-                          <tspan x="110" y="123">AND</tspan>
-                          <tspan x="110" y="141">DUPLICATION</tspan>
-                        </text>
-
-                        {/* Top Right Quadrant - Orange */}
-                        <path
-                          d="M 200 200 L 200 20 A 180 180 0 0 1 380 200 Z"
-                          fill="#feedd5"
-                          stroke="#FF9900"
-                          strokeWidth="4"
-                        />
-                        <text className="fill-[#1A2521] font-sans font-extrabold text-[12px] tracking-wider" textAnchor="middle">
-                          <tspan x="290" y="115">STRENGTHEN</tspan>
-                          <tspan x="290" y="133">PATHWAYS</tspan>
-                        </text>
-
-                        {/* Bottom Left Quadrant - Green */}
-                        <path
-                          d="M 200 200 L 200 380 A 180 180 0 0 1 20 200 Z"
-                          fill="#d2f0d5"
-                          stroke="#3AB03A"
-                          strokeWidth="4"
-                        />
-                        <text className="fill-[#1A2521] font-sans font-extrabold text-[9px] tracking-wider" textAnchor="middle">
-                          <tspan x="110" y="242">GROUND ACTION</tspan>
-                          <tspan x="110" y="260">IN EVIDENCE</tspan>
-                          <tspan x="110" y="278">AND LIVED</tspan>
-                          <tspan x="110" y="296">EXPERIENCE</tspan>
-                        </text>
-
-                        {/* Bottom Right Quadrant - Grey */}
-                        <path
-                          d="M 200 200 L 200 380 A 180 180 0 0 0 380 200 Z"
-                          fill="#e8e8e8"
-                          stroke="#969696"
-                          strokeWidth="4"
-                        />
-                        <text className="fill-[#1A2521] font-sans font-extrabold text-[11px] tracking-wider" textAnchor="middle">
-                          <tspan x="290" y="252">BUILD A</tspan>
-                          <tspan x="290" y="270">STRONGER</tspan>
-                          <tspan x="290" y="288">COLLECTIVE</tspan>
-                          <tspan x="290" y="306">CASE</tspan>
-                        </text>
-
-                        {/* White dividers on axes exactly matching infographic */}
-                        <line x1="20" y1="200" x2="380" y2="200" stroke="#ffffff" strokeWidth="6" />
-                        <line x1="200" y1="20" x2="200" y2="380" stroke="#ffffff" strokeWidth="6" />
-                      </svg>
+              {/* Right Column: Improved Visual Pipeline Tracker */}
+              <div className="lg:col-span-5 w-full">
+                <div className="w-full bg-[#faf9f6]/40 border border-[#969696]/20 p-5 sm:p-6 rounded-3xl shadow-xs">
+                  <div className="space-y-6">
+                    <div className="border-b border-[#969696]/15 pb-4 mb-2 text-left">
+                      <span className="text-[10px] font-mono font-bold uppercase tracking-widest text-[#FF9900]">Core Action Cycle</span>
+                      <h3 className="text-lg font-semibold text-[#2E536B] tracking-tight">Four pillars of place-based alignment</h3>
                     </div>
 
-                    {/* Surrounding Box Callouts wrapping around sectors */}
-                    {/* Top Left Callout */}
-                    <div className="absolute left-[2%] top-[10px] w-[200px] lg:w-[240px] min-h-[140px] bg-white border-2 border-[#2BB7BA] p-5 rounded-2xl shadow-sm text-center flex items-center justify-center hover:shadow transition-all duration-200">
-                      <p className="text-xs lg:text-sm font-normal text-[#51615a] leading-relaxed">
-                        Make existing provision easier to see, understand and connect — so partners can build on what works rather than repeat it.
-                      </p>
-                    </div>
+                    <div className="relative pl-6 md:pl-8 space-y-6 before:absolute before:left-[11px] md:before:left-[15px] before:top-4 before:bottom-4 before:w-0.5 before:bg-gradient-to-b before:from-[#2BB7BA] before:via-[#FF9900] before:to-[#969696] before:opacity-30">
+                      {[
+                        {
+                          num: "01",
+                          title: "Identify Gaps and Duplication",
+                          desc: "Make existing provision easier to see, understand and connect — so partners can build on what works rather than repeat it.",
+                          color: "#2BB7BA",
+                          bg: "bg-[#e6faf9]/30",
+                          dotBg: "bg-[#2BB7BA]"
+                        },
+                        {
+                          num: "02",
+                          title: "Strengthen Pathways",
+                          desc: "Improve how young people move between systems, especially from school to post-16, post-16 to work, and into second-chance routes.",
+                          color: "#FF9900",
+                          bg: "bg-[#feedd5]/30",
+                          dotBg: "bg-[#FF9900]"
+                        },
+                        {
+                          num: "03",
+                          title: "Ground Action in Evidence and Lived Experience",
+                          desc: "Test ideas with young people, practitioners and employers before scaling, so solutions reflect lived experience and local conditions.",
+                          color: "#3AB03A",
+                          bg: "bg-[#d2f0d5]/20",
+                          dotBg: "bg-[#3AB03A]"
+                        },
+                        {
+                          num: "04",
+                          title: "Build a Stronger Collective Case",
+                          desc: "Create credible evidence for government, funders and place-based investors about where shared action will have the greatest impact.",
+                          color: "#969696",
+                          bg: "bg-[#e8e8e8]/30",
+                          dotBg: "bg-[#969696]"
+                        }
+                      ].map((item, idx) => (
+                        <div key={idx} className="relative group transition-all duration-300">
+                          {/* Visual Connector Node */}
+                          <div className="absolute -left-[22px] md:-left-[27px] top-1 flex items-center justify-center">
+                            <div className={`w-5 h-5 md:w-6 md:h-6 rounded-full ${item.dotBg} text-white flex items-center justify-center font-mono text-[9px] md:text-[10px] font-bold shadow-sm group-hover:scale-110 transition-transform duration-300`}>
+                              {item.num}
+                            </div>
+                          </div>
 
-                    {/* Top Right Callout */}
-                    <div className="absolute right-[2%] top-[10px] w-[200px] lg:w-[240px] min-h-[140px] bg-white border-2 border-[#FF9900] p-5 rounded-2xl shadow-sm text-center flex items-center justify-center hover:shadow transition-all duration-200">
-                      <p className="text-xs lg:text-sm font-normal text-[#51615a] leading-relaxed">
-                        Improve how young people move between systems, especially from school to post-16, post-16 to work, and into second-chance routes.
-                      </p>
-                    </div>
-
-                    {/* Bottom Left Callout */}
-                    <div className="absolute left-[2%] bottom-[10px] w-[200px] lg:w-[240px] min-h-[140px] bg-white border-2 border-[#3AB03A] p-5 rounded-2xl shadow-sm text-center flex items-center justify-center hover:shadow transition-all duration-200">
-                      <p className="text-xs lg:text-sm font-normal text-[#51615a] leading-relaxed">
-                        Test ideas with young people, practitioners and employers before scaling, so solutions reflect lived experience and local conditions.
-                      </p>
-                    </div>
-
-                    {/* Bottom Right Callout */}
-                    <div className="absolute right-[2%] bottom-[10px] w-[200px] lg:w-[240px] min-h-[140px] bg-white border-2 border-[#969696] p-5 rounded-2xl shadow-sm text-center flex items-center justify-center hover:shadow transition-all duration-200">
-                      <p className="text-xs lg:text-sm font-normal text-[#51615a] leading-relaxed">
-                        Create credible evidence for government, funders and place-based investors about where shared action will have the greatest impact.
-                      </p>
-                    </div>
-
-                  </div>
-
-                  {/* Mobile/Tablet version: Elegant vertical split that remains perfectly legible & visually coherent */}
-                  <div className="block md:hidden space-y-6">
-                    <div className="flex justify-center">
-                      <svg viewBox="0 0 400 400" className="w-[240px] h-[240px] filter drop-shadow select-none">
-                        {/* Top Left Quadrant - Teal */}
-                        <path
-                          d="M 200 200 L 200 20 A 180 180 0 0 0 20 200 Z"
-                          fill="#e6faf9"
-                          stroke="#2BB7BA"
-                          strokeWidth="4"
-                        />
-                        <text className="fill-[#1A2521] font-sans font-extrabold text-[10px] tracking-wider" textAnchor="middle">
-                          <tspan x="110" y="105">IDENTIFY GAPS</tspan>
-                          <tspan x="110" y="123">AND</tspan>
-                          <tspan x="110" y="141">DUPLICATION</tspan>
-                        </text>
-
-                        {/* Top Right Quadrant - Orange */}
-                        <path
-                          d="M 200 200 L 200 20 A 180 180 0 0 1 380 200 Z"
-                          fill="#feedd5"
-                          stroke="#FF9900"
-                          strokeWidth="4"
-                        />
-                        <text className="fill-[#1A2521] font-sans font-extrabold text-[12px] tracking-wider" textAnchor="middle">
-                          <tspan x="290" y="115">STRENGTHEN</tspan>
-                          <tspan x="290" y="133">PATHWAYS</tspan>
-                        </text>
-
-                        {/* Bottom Left Quadrant - Green */}
-                        <path
-                          d="M 200 200 L 200 380 A 180 180 0 0 1 20 200 Z"
-                          fill="#d2f0d5"
-                          stroke="#3AB03A"
-                          strokeWidth="4"
-                        />
-                        <text className="fill-[#1A2521] font-sans font-extrabold text-[9px] tracking-wider" textAnchor="middle">
-                          <tspan x="110" y="242">GROUND ACTION</tspan>
-                          <tspan x="110" y="260">IN EVIDENCE</tspan>
-                          <tspan x="110" y="278">AND LIVED</tspan>
-                          <tspan x="110" y="296">EXPERIENCE</tspan>
-                        </text>
-
-                        {/* Bottom Right Quadrant - Grey */}
-                        <path
-                          d="M 200 200 L 200 380 A 180 180 0 0 0 380 200 Z"
-                          fill="#e8e8e8"
-                          stroke="#969696"
-                          strokeWidth="4"
-                        />
-                        <text className="fill-[#1A2521] font-sans font-extrabold text-[11px] tracking-wider" textAnchor="middle">
-                          <tspan x="290" y="252">BUILD A</tspan>
-                          <tspan x="290" y="270">STRONGER</tspan>
-                          <tspan x="290" y="288">COLLECTIVE</tspan>
-                          <tspan x="290" y="306">CASE</tspan>
-                        </text>
-
-                        {/* White dividers on axes */}
-                        <line x1="20" y1="200" x2="380" y2="200" stroke="#ffffff" strokeWidth="5" />
-                        <line x1="200" y1="20" x2="200" y2="380" stroke="#ffffff" strokeWidth="5" />
-                      </svg>
-                    </div>
-
-                    <div className="grid grid-cols-1 gap-4">
-                      {/* Top-Left Box Mobile */}
-                      <div className="bg-white border-l-4 border-[#2BB7BA] p-4 rounded-xl shadow-sm">
-                        <span className="text-[10px] font-bold text-[#2BB7BA] uppercase tracking-wider block mb-1">01. Identify Gaps and Duplication</span>
-                        <p className="text-xs text-[#51615a] leading-relaxed">
-                          Make existing provision easier to see, understand and connect — so partners can build on what works rather than repeat it.
-                        </p>
-                      </div>
-
-                      {/* Top-Right Box Mobile */}
-                      <div className="bg-white border-l-4 border-[#FF9900] p-4 rounded-xl shadow-sm">
-                        <span className="text-[10px] font-bold text-[#FF9900] uppercase tracking-wider block mb-1">02. Strengthen Pathways</span>
-                        <p className="text-xs text-[#51615a] leading-relaxed">
-                          Improve how young people move between systems, especially from school to post-16, post-16 to work, and into second-chance routes.
-                        </p>
-                      </div>
-
-                      {/* Bottom-Left Box Mobile */}
-                      <div className="bg-white border-l-4 border-[#3AB03A] p-4 rounded-xl shadow-sm">
-                        <span className="text-[10px] font-bold text-[#3AB03A] uppercase tracking-wider block mb-1">03. Ground Action in Evidence and Lived Experience</span>
-                        <p className="text-xs text-[#51615a] leading-relaxed">
-                          Test ideas with young people, practitioners and employers before scaling, so solutions reflect lived experience and local conditions.
-                        </p>
-                      </div>
-
-                      {/* Bottom-Right Box Mobile */}
-                      <div className="bg-white border-l-4 border-[#969696] p-4 rounded-xl shadow-sm">
-                        <span className="text-[10px] font-bold text-[#969696] uppercase tracking-wider block mb-1">04. Build a Stronger Collective Case</span>
-                        <p className="text-xs text-[#51615a] leading-relaxed">
-                          Create credible evidence for government, funders and place-based investors about where shared action will have the greatest impact.
-                        </p>
-                      </div>
+                          {/* Card */}
+                          <div className="p-4 sm:p-5 rounded-2xl bg-white border border-[#969696]/15 hover:border-slate-300 shadow-xs hover:shadow-md transition-all duration-300 text-left">
+                            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-1 pb-1 border-b border-slate-100 mb-2">
+                              <h4 className="font-bold text-xs sm:text-sm uppercase tracking-wider" style={{ color: item.color }}>
+                                {item.title}
+                              </h4>
+                              <span className="text-[9px] font-mono text-slate-400 font-semibold uppercase tracking-widest">
+                                Pillar {item.num}
+                              </span>
+                            </div>
+                            <p className="text-xs sm:text-sm text-[#51615a] leading-relaxed">
+                              {item.desc}
+                            </p>
+                          </div>
+                        </div>
+                      ))}
                     </div>
                   </div>
-
                 </div>
               </div>
 
@@ -1074,9 +946,39 @@ export default function App() {
           </section>
         </div>
 
+        {/* NEW SECTION: NEXT STAGE AMBITION */}
+        <div id="preview-sec-next-stage-ambition" className="relative">
+          <section className="py-12 sm:py-16 px-6 sm:px-12 bg-white border-b border-[#969696]/30">
+            <div className="max-w-6xl mx-auto">
+              <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start text-left font-sans">
+                <div className="lg:col-span-5 space-y-4">
+                  <span className="text-xs font-bold uppercase tracking-widest text-[#FF9900] block">Next Stage Ambition</span>
+                  <h2 className="text-3xl font-normal text-[#2E536B] tracking-tight leading-tight">
+                    Building the infrastructure for coordinated place-based action
+                  </h2>
+                  <p className="text-sm sm:text-base text-[#51615a] font-semibold leading-relaxed pt-2">
+                    We have built the insight and early evidence. The next step is to build the capacity and infrastructure to move this into coordinated delivery.
+                  </p>
+                </div>
+                <div className="lg:col-span-7 space-y-6 pt-2 lg:pt-8">
+                  <p className="text-sm sm:text-base text-[#51615a] leading-relaxed">
+                    The next stage of the work is about turning insight into practical coordination.
+                  </p>
+                  <p className="text-sm sm:text-base text-[#51615a] leading-relaxed">
+                    With the right investment, OAHA wants to develop the shared infrastructure needed to help partners see the system more clearly, coordinate activity more effectively and understand what is changing for young people over time.
+                  </p>
+                  <p className="text-sm sm:text-base text-[#51615a] leading-relaxed">
+                    This will be developed carefully with partners, building on the evidence, relationships and priorities already surfaced through Phase 1 and Phase 2.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </section>
+        </div>
+
         {/* SECTION 4C: WHAT WE NEED NOW */}
         <div id="preview-sec-what-we-need-now" className="relative">
-          <section className="py-12 sm:py-16 px-6 sm:px-12 bg-white border-b border-[#969696]/30">
+          <section className="py-12 sm:py-16 px-6 sm:px-12 bg-[#faf9f6]/30 border-b border-[#969696]/30">
             <div className="max-w-6xl mx-auto space-y-8">
               
               <div className="space-y-2 text-left max-w-3xl">
@@ -1092,7 +994,7 @@ export default function App() {
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
                 
                 {/* Card 1 */}
-                <div className="group bg-[#faf9f6]/40 hover:bg-white border border-[#969696]/20 hover:border-[#2BB7BA]/60 p-6 rounded-lg transition-all duration-300 hover:shadow-sm">
+                <div className="group bg-white border border-[#969696]/20 hover:border-[#2BB7BA]/60 p-6 rounded-lg transition-all duration-300 hover:shadow-sm">
                   <div className="w-10 h-10 rounded-lg bg-[#2BB7BA]/10 flex items-center justify-center text-[#2BB7BA] mb-4 group-hover:bg-[#2BB7BA] group-hover:text-white transition-all duration-300">
                     <Lightbulb className="w-5 h-5" />
                   </div>
@@ -1105,7 +1007,7 @@ export default function App() {
                 </div>
 
                 {/* Card 2 */}
-                <div className="group bg-[#faf9f6]/40 hover:bg-white border border-[#969696]/20 hover:border-[#FF9900]/60 p-6 rounded-lg transition-all duration-300 hover:shadow-sm">
+                <div className="group bg-white border border-[#969696]/20 hover:border-[#FF9900]/60 p-6 rounded-lg transition-all duration-300 hover:shadow-sm">
                   <div className="w-10 h-10 rounded-lg bg-[#FF9900]/10 flex items-center justify-center text-[#FF9900] mb-4 group-hover:bg-[#FF9900] group-hover:text-white transition-all duration-300">
                     <Network className="w-5 h-5" />
                   </div>
@@ -1118,7 +1020,7 @@ export default function App() {
                 </div>
 
                 {/* Card 3 */}
-                <div className="group bg-[#faf9f6]/40 hover:bg-white border border-[#969696]/20 hover:border-[#3AB03A]/60 p-6 rounded-lg transition-all duration-300 hover:shadow-sm">
+                <div className="group bg-white border border-[#969696]/20 hover:border-[#3AB03A]/60 p-6 rounded-lg transition-all duration-300 hover:shadow-sm">
                   <div className="w-10 h-10 rounded-lg bg-[#3AB03A]/10 flex items-center justify-center text-[#3AB03A] mb-4 group-hover:bg-[#3AB03A] group-hover:text-white transition-all duration-300">
                     <CalendarDays className="w-5 h-5" />
                   </div>
@@ -1131,7 +1033,7 @@ export default function App() {
                 </div>
 
                 {/* Card 4 */}
-                <div className="group bg-[#faf9f6]/40 hover:bg-white border border-[#969696]/20 hover:border-[#2E536B]/60 p-6 rounded-lg transition-all duration-300 hover:shadow-sm">
+                <div className="group bg-white border border-[#969696]/20 hover:border-[#2E536B]/60 p-6 rounded-lg transition-all duration-300 hover:shadow-sm">
                   <div className="w-10 h-10 rounded-lg bg-[#2E536B]/10 flex items-center justify-center text-[#2E536B] mb-4 group-hover:bg-[#2E536B] group-hover:text-white transition-all duration-300">
                     <PoundSterling className="w-5 h-5" />
                   </div>
@@ -1151,7 +1053,7 @@ export default function App() {
 
         {/* SECTION 4D: WHO IS COORDINATING THIS WORK? */}
         <div id="preview-sec-coordination" className="relative">
-          <section className="py-12 sm:py-16 px-6 sm:px-12 bg-[#faf9f6]/30 border-b border-[#969696]/30">
+          <section className="py-12 sm:py-16 px-6 sm:px-12 bg-white border-b border-[#969696]/30">
             <div className="max-w-4xl mx-auto text-left space-y-6">
               <div className="space-y-2">
                 <span className="text-xs font-bold uppercase tracking-widest text-[#FF9900] block">Convening & Coordination</span>
@@ -1171,7 +1073,7 @@ export default function App() {
 
         {/* SECTION 5: GET INVOLVED (THE ULTRACLEAN FORM) */}
         <div id="preview-sec-get-involved" className="relative">
-          <section className="py-12 sm:py-16 px-6 sm:px-12 bg-white border-b border-[#969696]/30">
+          <section className="py-12 sm:py-16 px-6 sm:px-12 bg-[#faf9f6]/30 border-b border-[#969696]/30">
             <div className="max-w-2xl mx-auto space-y-6">
               
               <div className="text-center space-y-1">
