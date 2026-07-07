@@ -635,24 +635,36 @@ export default function App() {
                     Phase 1 has helped build a clearer view of the ecosystem, the learner journey and the points where opportunity becomes harder to see or access.
                   </p>
                   <p className="text-sm sm:text-base text-[#51615a] leading-relaxed">
-                    The next phase is about moving from insight to action: testing the findings with young people and communities, deepening employer engagement, and identifying a small number of practical, place-based pilots that can make opportunity easier to see, access and move through.
+                    The next phase is about moving from insight to coordinated action: strengthening the evidence base, deepening employer engagement and identifying a small number of practical, place-based pilots.
+                  </p>
+                  <p className="text-sm sm:text-base text-[#51615a] leading-relaxed">
+                    The ambition is to help partners work from a clearer shared picture of need, provision and opportunity, so future investment and delivery can be better targeted.
                   </p>
                 </div>
  
                 <div className="lg:col-span-5 bg-white border border-[#969696]/30 p-8 space-y-6 rounded shadow-sm">
                   <h3 className="text-sm uppercase tracking-wider font-bold text-[#2E536B] border-b border-[#969696]/30 pb-2">Three Simple Aims:</h3>
-                  <ul className="space-y-4 text-sm text-[#51615a]">
+                  <ul className="space-y-5 text-sm text-[#51615a]">
                     <li className="flex items-start gap-3">
                       <span className="w-1.5 h-1.5 rounded-full bg-[#2BB7BA] mt-1.5 shrink-0"></span>
-                      <span>Make the case for a place-based response to social mobility in Wales.</span>
+                      <div className="space-y-0.5">
+                        <span className="font-bold text-[#2E536B] block">1. Strengthen the evidence base</span>
+                        <span className="text-xs text-[#51615a]">Bring together insight from partners, young people, communities, employers and available data.</span>
+                      </div>
                     </li>
                     <li className="flex items-start gap-3">
                       <span className="w-1.5 h-1.5 rounded-full bg-[#FF9900] mt-1.5 shrink-0"></span>
-                      <span>Highlight what Phase 1 revealed about fragmented systems, weak handoffs, and hidden pathways.</span>
+                      <div className="space-y-0.5">
+                        <span className="font-bold text-[#2E536B] block">2. Shape practical pilot opportunities</span>
+                        <span className="text-xs text-[#51615a]">Identify where coordinated action could make the biggest difference.</span>
+                      </div>
                     </li>
                     <li className="flex items-start gap-3">
                       <span className="w-1.5 h-1.5 rounded-full bg-[#3AB03A] mt-1.5 shrink-0"></span>
-                      <span>Propose a practical, collaborative, and proportionate next stage.</span>
+                      <div className="space-y-0.5">
+                        <span className="font-bold text-[#2E536B] block">3. Build the case for investment</span>
+                        <span className="text-xs text-[#51615a]">Show where funding could strengthen existing pathways rather than duplicate them.</span>
+                      </div>
                     </li>
                   </ul>
                 </div>
