@@ -461,6 +461,9 @@ export default function App() {
                 <p className="text-sm sm:text-base text-[#51615a] leading-relaxed">
                   We now understand where pathways are strong, where they are fragmented, and where collective action could make the greatest difference.
                 </p>
+                <p className="text-sm sm:text-base text-[#51615a] leading-relaxed">
+                  This gives us the foundation for the next stage: connecting insight, evidence and partner action in a more coordinated way.
+                </p>
               </div>
  
               {/* Horizontal Milestones Timeline */}
@@ -566,11 +569,11 @@ export default function App() {
                       <div className="pl-11 md:pl-0 space-y-1.5 flex-1 flex flex-col justify-start">
                         <div className="md:h-8 flex items-start">
                           <h4 className="text-sm font-bold text-[#FF9900] uppercase tracking-wide leading-snug">
-                            Youth validation and solution design
+                            Youth Validation and Partner Design
                           </h4>
                         </div>
                         <p className="text-sm text-[#51615a] leading-relaxed border-t border-gray-100 pt-1.5">
-                          Test themes directly with young people and lived experience. Move the strongest opportunities toward pilot-ready propositions.
+                          Tested emerging themes with young people and partners. Used design-led methods, including the LEGO Serious Play workshop, to explore where pathways connect, where they break, and which opportunities should move toward pilot design.
                         </p>
                       </div>
                     </div>
