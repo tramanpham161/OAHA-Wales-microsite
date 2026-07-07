@@ -1028,7 +1028,7 @@ export default function App() {
                     Capacity
                   </h3>
                   <p className="text-sm text-[#51615a] leading-relaxed font-sans">
-                    Join a workshop, test a prototype, host a conversation or support delivery.
+                    Join a workshop, host a conversation, test pilot ideas or support delivery.
                   </p>
                 </div>
 
@@ -1041,7 +1041,7 @@ export default function App() {
                     Investment
                   </h3>
                   <p className="text-sm text-[#51615a] leading-relaxed font-sans">
-                    Help fund the coordination, youth voice, mapping, design and pilot development needed to move from insight to action.
+                    Help fund the coordination, evidence, youth voice, design and pilot development needed to move from insight to action.
                   </p>
                 </div>
 
@@ -1062,7 +1062,7 @@ export default function App() {
                 </h2>
               </div>
               <p className="text-sm sm:text-base text-[#51615a] leading-relaxed font-sans">
-                OAHA and Lewis Silkin are helping to convene and coordinate this collaboration, working with partners across Wales to move from insight to practical action. The role is not to create another standalone programme, but to provide light-touch backbone support: connecting people, synthesising insight, identifying gaps and helping partners shape pilot-ready solutions.
+                OAHA and Lewis Silkin are helping to convene and coordinate this collaboration, working with partners across Wales to move from insight to practical action. The role is not to create another standalone programme, but to provide light-touch backbone support: connecting people, synthesising insight, identifying gaps and helping partners shape pilot-ready solutions. The intention is not to create another standalone programme, but to help partners build on what already exists and move toward more coordinated action.
               </p>
               <p className="text-sm sm:text-base text-[#51615a] leading-relaxed font-sans">
                 The work is intentionally collaborative. It will evolve as more employers, community organisations, charities, educators, funders and public bodies contribute insight and capacity.
