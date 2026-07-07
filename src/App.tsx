@@ -1167,12 +1167,12 @@ export default function App() {
                             const firstOption = tab.id === "employers" 
                               ? "Share future skills needs"
                               : tab.id === "partners"
-                                ? "Share local insight"
+                                ? "Share community insight"
                                 : tab.id === "education"
-                                  ? "Support youth insight"
+                                  ? "Connect us to young people or schools"
                                   : tab.id === "government"
-                                    ? "Contribute regional insight"
-                                    : "Support youth voice and mapping";
+                                    ? "Share relevant data or research"
+                                    : "Fund the next phase";
                             setSelectedOption(firstOption);
 
                             // Set organic organisation type to match tab choice
@@ -1213,7 +1213,7 @@ export default function App() {
                       {activeInvolvedTab === "partners" && "Community groups and charities can share what they are seeing locally, identify where young people and families face barriers, help test emerging ideas, and connect the work to the people and places it is designed to support."}
                       {activeInvolvedTab === "education" && "Schools, colleges and universities can support youth insight, host design-led workshops, connect learners to employers and community partners, and help test how future jobs and local growth sectors are translated into learner awareness."}
                       {activeInvolvedTab === "government" && "Government and public bodies can contribute insight, connect policy and delivery priorities, share evidence, align with youth employment and skills strategies, and help identify where practical pilots could support wider regional outcomes."}
-                      {activeInvolvedTab === "funders" && "Funders and strategic partners can support youth voice, ecosystem mapping, design workshops, prototype testing, evaluation and pilot mobilisation. Your support can help existing activity go further and build evidence for what works in place."}
+                      {activeInvolvedTab === "funders" && "Help fund the next stage of the work: strengthening the evidence base, supporting youth voice, shaping pilot opportunities and building the coordination needed to move from insight to delivery."}
                     </p>
                   </div>
 
@@ -1313,47 +1313,17 @@ export default function App() {
                           onChange={(e) => setSelectedOption(e.target.value)}
                           className="w-full bg-white border border-[#969696]/30 p-3 text-sm focus:outline-none focus:border-[#2E536B] rounded-lg cursor-pointer text-[#1a2521]"
                         >
-                          {activeInvolvedTab === "employers" && (
-                            <>
-                              <option value="Share future skills needs">Share future skills needs</option>
-                              <option value="Host design workshops">Host design workshops</option>
-                              <option value="Offer workplace exposure">Offer workplace exposure</option>
-                              <option value="Support mentoring">Support mentoring</option>
-                              <option value="Help shape a pilot">Help shape a pilot</option>
-                            </>
-                          )}
-                          {activeInvolvedTab === "partners" && (
-                            <>
-                              <option value="Share local insight">Share local insight</option>
-                              <option value="Identify barrier areas">Identify barrier areas</option>
-                              <option value="Test emerging ideas">Test emerging ideas</option>
-                              <option value="Connect youth and families">Connect youth and families</option>
-                            </>
-                          )}
-                          {activeInvolvedTab === "education" && (
-                            <>
-                              <option value="Support youth insight">Support youth insight</option>
-                              <option value="Host design-led workshops">Host design-led workshops</option>
-                              <option value="Connect learners to employers">Connect learners to employers</option>
-                              <option value="Test future job translation">Test future job translation</option>
-                            </>
-                          )}
-                          {activeInvolvedTab === "government" && (
-                            <>
-                              <option value="Contribute regional insight">Contribute regional insight</option>
-                              <option value="Connect policy and delivery">Connect policy and delivery</option>
-                              <option value="Share data and evidence">Share data and evidence</option>
-                              <option value="Identify potential pilots">Identify potential pilots</option>
-                            </>
-                          )}
-                          {activeInvolvedTab === "funders" && (
-                            <>
-                              <option value="Support youth voice and mapping">Support youth voice and mapping</option>
-                              <option value="Support prototype testing">Support prototype testing</option>
-                              <option value="Support evaluation and pilots">Support evaluation and pilots</option>
-                              <option value="Book a conversation">Book a conversation</option>
-                            </>
-                          )}
+                          <option value="Share future skills needs">Share future skills needs</option>
+                          <option value="Contribute to the ecosystem map">Contribute to the ecosystem map</option>
+                          <option value="Connect us to young people or schools">Connect us to young people or schools</option>
+                          <option value="Share community insight">Share community insight</option>
+                          <option value="Offer employer encounters">Offer employer encounters</option>
+                          <option value="Offer work experience or mentoring">Offer work experience or mentoring</option>
+                          <option value="Support pilot design">Support pilot design</option>
+                          <option value="Fund the next phase">Fund the next phase</option>
+                          <option value="Join a design workshop">Join a design workshop</option>
+                          <option value="Share relevant data or research">Share relevant data or research</option>
+                          <option value="Discuss strategic partnership">Discuss strategic partnership</option>
                         </select>
                       </div>
 
