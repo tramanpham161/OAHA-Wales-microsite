@@ -3,6 +3,8 @@
   "cleanUrls": true,
   "rewrites": [
     { "source": "/whitepaper.pdf", "destination": "/api" },
+    { "source": "/whitepaper-cy.pdf", "destination": "/api" },
+    { "source": "/papur-gwyn.pdf", "destination": "/api" },
     { "source": "/api/(.*)", "destination": "/api" },
     { "source": "/(.*)", "destination": "/index.html" }
   ]
