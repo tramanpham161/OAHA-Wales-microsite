@@ -222,12 +222,16 @@ export function StageProfessionalSvg({ className = "w-20 h-40 text-slate-900" }:
   );
 }
 
-export default function LearnerJourneyFlow() {
+export default function LearnerJourneyFlow({ lang = "en" }: { lang?: "en" | "cy" }) {
+  const isCy = lang === "cy";
+
   const journeyStages = [
     {
       id: "journey-stage-1",
-      title: "Visibility",
-      description: "Pathways may exist, but they are not always visible, relatable or easy to understand early enough. Young people may not always see how local growth, future jobs or employer demand connect to what they are learning now.",
+      title: isCy ? "Gwelededd" : "Visibility",
+      description: isCy
+        ? "Gall llwybrau fodoli, ond nid ydynt bob amser yn weladwy, yn berthnasol nac yn hawdd eu deall yn ddigon cynnar. Efallai na fydd pobl ifanc bob amser yn gweld sut mae twf lleol, swyddi'r dyfodol neu alw cyflogwyr yn cysylltu â'r hyn maent yn ei ddysgu nawr."
+        : "Pathways may exist, but they are not always visible, relatable or easy to understand early enough. Young people may not always see how local growth, future jobs or employer demand connect to what they are learning now.",
       svgComponent: <StageBabySvg className="w-20 h-28 text-[#2BB7BA] mx-auto group-hover:text-[#FF9900] transition-colors duration-300" />,
       colorClass: "border-[#2BB7BA]",
       textColor: "text-[#2BB7BA]",
@@ -236,8 +240,10 @@ export default function LearnerJourneyFlow() {
     },
     {
       id: "journey-stage-2",
-      title: "Family awareness",
-      description: "Parents, carers and trusted adults shape choices, but routes into local jobs and future sectors are not always clear, current or easy to explain.",
+      title: isCy ? "Ymwybyddiaeth teuluoedd" : "Family awareness",
+      description: isCy
+        ? "Mae rhieni, gofalwyr ac oedolion dibynadwy yn siapio dewisiadau, ond nid yw llwybrau i swyddi lleol a sectorau'r dyfodol bob amser yn glir, yn gyfredol nac yn hawdd eu hegluro."
+        : "Parents, carers and trusted adults shape choices, but routes into local jobs and future sectors are not always clear, current or easy to explain.",
       svgComponent: <StageToddlerSvg className="w-20 h-28 text-[#FF9900] mx-auto group-hover:text-[#3AB03A] transition-colors duration-300" />,
       colorClass: "border-[#FF9900]",
       textColor: "text-[#FF9900]",
@@ -246,8 +252,10 @@ export default function LearnerJourneyFlow() {
     },
     {
       id: "journey-stage-3",
-      title: "Transitions",
-      description: "Real jobs, future skills and employer demand do not always translate into learner awareness, curriculum links or pathway design.",
+      title: isCy ? "Trosglwyddiadau" : "Transitions",
+      description: isCy
+        ? "Nid yw swyddi go iawn, sgiliau'r dyfodol a galw cyflogwyr bob amser yn trosi'n ymwybyddiaeth i ddysgwyr, cysylltiadau cwricwlwm na dyluniad llwybrau."
+        : "Real jobs, future skills and employer demand do not always translate into learner awareness, curriculum links or pathway design.",
       svgComponent: <StageSchoolchildSvg className="w-20 h-28 text-[#3AB03A] mx-auto group-hover:text-[#2BB7BA] transition-colors duration-300" />,
       colorClass: "border-[#3AB03A]",
       textColor: "text-[#3AB03A]",
@@ -256,8 +264,10 @@ export default function LearnerJourneyFlow() {
     },
     {
       id: "journey-stage-4",
-      title: "Navigation",
-      description: "Non-linear routes can involve repeated retelling, weak advocacy and complex thresholds.",
+      title: isCy ? "Llywio" : "Navigation",
+      description: isCy
+        ? "Gall llwybrau nad ydynt yn llinol olygu ailadrodd straeon, eiriolaeth wan a throthwyon mynediad cymhleth."
+        : "Non-linear routes can involve repeated retelling, weak advocacy and complex thresholds.",
       svgComponent: <StageYoungAdultSvg className="w-20 h-28 text-[#986430] mx-auto group-hover:text-[#2E536B] transition-colors duration-300" />,
       colorClass: "border-[#986430]",
       textColor: "text-[#986430]",
@@ -266,8 +276,10 @@ export default function LearnerJourneyFlow() {
     },
     {
       id: "journey-stage-5",
-      title: "Translation",
-      description: "Employers may understand the skills and capabilities they need, but this does not always translate into practical experiences, language or support that young people, schools and families can use.",
+      title: isCy ? "Cyfieithu" : "Translation",
+      description: isCy
+        ? "Gall cyflogwyr ddeall y sgiliau a'r galluoedd sydd eu hangen arnynt, ond nid yw hyn bob amser yn trosi'n brofiadau ymarferol, iaith na chefnogaeth y gall pobl ifanc, ysgolion a theuluoedd eu defnyddio."
+        : "Employers may understand the skills and capabilities they need, but this does not always translate into practical experiences, language or support that young people, schools and families can use.",
       svgComponent: <StageAdultSvg className="w-20 h-28 text-[#969696] mx-auto group-hover:text-[#2BB7BA] transition-colors duration-300" />,
       colorClass: "border-[#969696]",
       textColor: "text-[#969696]",
@@ -276,8 +288,10 @@ export default function LearnerJourneyFlow() {
     },
     {
       id: "journey-stage-6",
-      title: "Progression",
-      description: "Access alone is not progression if cultures still reward familiarity and narrow ideas of “fit”.",
+      title: isCy ? "Dilyniant" : "Progression",
+      description: isCy
+        ? "Nid yw mynediad ar ei ben ei hun yn ddilyniant os yw diwylliannau'n parhau i ffafrio cyfarwyddrwydd a syniadau cul o 'ffit'."
+        : "Access alone is not progression if cultures still reward familiarity and narrow ideas of “fit”.",
       svgComponent: <StageProfessionalSvg className="w-20 h-28 text-[#2E536B] mx-auto group-hover:text-[#FF9900] transition-colors duration-300" />,
       colorClass: "border-[#2E536B]",
       textColor: "text-[#2E536B]",
@@ -291,13 +305,17 @@ export default function LearnerJourneyFlow() {
       {/* Header of the Journey */}
       <div className="space-y-2 text-left max-w-4xl">
         <span className="text-xs font-bold uppercase tracking-widest text-[#FF9900] block">
-          The Ecosystem In Friction
+          {isCy ? "Yr Ecosystem o dan Ffrithiant" : "The Ecosystem In Friction"}
         </span>
         <h2 className="text-3xl font-normal text-[#2E536B] tracking-tight">
-          Six gaps that make opportunity hard to see and move through
+          {isCy
+            ? "Chwe bwlch sy'n gwneud cyfle'n anodd ei weld a symud drwyddo"
+            : "Six gaps that make opportunity hard to see and move through"}
         </h2>
         <p className="text-base text-[#51615a] leading-relaxed max-w-3xl">
-          The issue is not simply the amount of provision. It is what happens at the handoffs.
+          {isCy
+            ? "Nid maint y ddarpariaeth yn syml yw'r broblem. Yr hyn sy'n bwysig yw'r hyn sy'n digwydd ar y pwyntiau trosglwyddo."
+            : "The issue is not simply the amount of provision. It is what happens at the handoffs."}
         </p>
       </div>
 
@@ -308,7 +326,7 @@ export default function LearnerJourneyFlow() {
             40+
           </p>
           <p className="text-sm text-[#51615a] leading-relaxed mt-2 font-sans">
-            organisations engaged
+            {isCy ? "sefydliad wedi ymgysylltu" : "organisations engaged"}
           </p>
         </div>
 
@@ -317,7 +335,7 @@ export default function LearnerJourneyFlow() {
             171
           </p>
           <p className="text-sm text-[#51615a] leading-relaxed mt-2 font-sans">
-            organisation-stage touchpoints mapped
+            {isCy ? "pwynt cyswllt sefydliad-cam wedi'u mapio" : "organisation-stage touchpoints mapped"}
           </p>
         </div>
 
@@ -326,7 +344,7 @@ export default function LearnerJourneyFlow() {
             6
           </p>
           <p className="text-sm text-[#51615a] leading-relaxed mt-2 font-sans">
-            journey stages from community to progression
+            {isCy ? "cam ar y daith o'r gymuned i ddilyniant" : "journey stages from community to progression"}
           </p>
         </div>
       </div>
