@@ -573,7 +573,7 @@ export default function App() {
               </div>
  
               {/* Participating Partners Logos Section */}
-              <PartnerLogos />
+              <PartnerLogos lang={lang} />
 
               {/* Call To Action buttons relocated under participating partners */}
               <div className="pt-2 pb-4 flex flex-col sm:flex-row items-center justify-center gap-4">
@@ -1104,7 +1104,7 @@ export default function App() {
                         <input
                           type="text"
                           required
-                          placeholder="Your Name"
+                          placeholder={t.getInvolved.form.namePlaceholder}
                           value={contactFormName}
                           onChange={(e) => setContactFormName(e.target.value)}
                           className="w-full bg-white border border-[#969696]/30 p-3 text-sm focus:outline-none focus:border-[#2E536B] rounded-lg"
@@ -1117,7 +1117,7 @@ export default function App() {
                         <input
                           type="text"
                           required
-                          placeholder="Organisation Name"
+                          placeholder={t.getInvolved.form.orgPlaceholder}
                           value={contactOrganisation}
                           onChange={(e) => setContactOrganisation(e.target.value)}
                           className="w-full bg-white border border-[#969696]/30 p-3 text-sm focus:outline-none focus:border-[#2E536B] rounded-lg"
@@ -1130,7 +1130,7 @@ export default function App() {
                         <input
                           type="text"
                           required
-                          placeholder="e.g. Director, Partnership Manager"
+                          placeholder={t.getInvolved.form.rolePlaceholder}
                           value={contactRole}
                           onChange={(e) => setContactRole(e.target.value)}
                           className="w-full bg-white border border-[#969696]/30 p-3 text-sm focus:outline-none focus:border-[#2E536B] rounded-lg"
@@ -1157,7 +1157,7 @@ export default function App() {
                         <input
                           type="email"
                           required
-                          placeholder="name@organisation.org.uk"
+                          placeholder={t.getInvolved.form.emailPlaceholder}
                           value={contactFormEmail}
                           onChange={(e) => setContactFormEmail(e.target.value)}
                           className="w-full bg-white border border-[#969696]/30 p-3 text-sm focus:outline-none focus:border-[#2E536B] rounded-lg"
@@ -1170,7 +1170,7 @@ export default function App() {
                         <input
                           type="tel"
                           required
-                          placeholder="e.g., 07123 456789"
+                          placeholder={t.getInvolved.form.phonePlaceholder}
                           value={contactPhone}
                           onChange={(e) => setContactPhone(e.target.value)}
                           className="w-full bg-white border border-[#969696]/30 p-3 text-sm focus:outline-none focus:border-[#2E536B] rounded-lg"
@@ -1200,7 +1200,7 @@ export default function App() {
                         </label>
                         <textarea
                           rows={4}
-                          placeholder="Please share details about your objectives or how we can best collaborate..."
+                          placeholder={t.getInvolved.form.messagePlaceholder}
                           value={contactMessage}
                           onChange={(e) => setContactMessage(e.target.value)}
                           className="w-full bg-white border border-[#969696]/30 p-3 text-sm focus:outline-none focus:border-[#2E536B] rounded-lg transition-all text-[#1a2521]"
@@ -1235,7 +1235,7 @@ export default function App() {
           <footer className="bg-white py-16 px-6 border-t border-[#969696]/30">
             <div className="max-w-4xl mx-auto text-center space-y-6">
               <p className="text-xs text-[#51615a] leading-relaxed max-w-lg mx-auto">
-                {t.footer.mainText} Return to our main site at{" "}
+                {t.footer.mainText} {t.footer.returnMain}{" "}
                 <a
                   href="https://oaha.uk"
                   target="_blank"
@@ -1244,7 +1244,7 @@ export default function App() {
                 >
                   oaha.uk
                 </a>{" "}
-                or connect with us on LinkedIn:{" "}
+                {t.footer.orConnect}{" "}
                 <a
                   href="https://www.linkedin.com/company/oahasocialsustainability/"
                   target="_blank"
@@ -1485,6 +1485,18 @@ export default function App() {
           </div>
         </div>
       )}
+
+      {/* Floating Language Quick-Switcher on bottom right */}
+      <div className="fixed bottom-6 right-6 z-40 shadow-xl rounded-full bg-white/95 backdrop-blur-md border border-slate-300/80 p-1.5 flex items-center gap-1.5 hover:scale-105 transition-all">
+        <button
+          onClick={() => handleSetLang(lang === "en" ? "cy" : "en")}
+          className="flex items-center gap-2 px-3.5 py-2 text-xs font-bold rounded-full bg-[#2E536B] hover:bg-[#3AB03A] text-white transition-all shadow-xs cursor-pointer"
+          title={lang === "en" ? "Newid gwefan i'r Gymraeg (Switch to Welsh)" : "Switch to English"}
+        >
+          {lang === "en" ? <WelshFlagIcon className="w-4 h-3" /> : <UkFlagIcon className="w-4 h-3" />}
+          <span>{lang === "en" ? "Cymraeg" : "English"}</span>
+        </button>
+      </div>
 
     </div>
   );
