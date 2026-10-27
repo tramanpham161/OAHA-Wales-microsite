@@ -250,7 +250,7 @@ export const translations: Record<Language, Translations> = {
       btnLearning: "WHAT WE ARE LEARNING",
       btnSupport: "SUPPORT THE NEXT PHASE",
       readEnBtn: "Read the Phase 1 summary in English",
-      readCyBtn: "Darllenwch grynodeb Cam 1 yn y Gymraeg"
+      readCyBtn: "Read the Phase 1 summary in Welsh"
     },
     whyNow: {
       tag: "Strategic Convergence",
@@ -327,7 +327,7 @@ export const translations: Record<Language, Translations> = {
       ],
       partnersTitle: "Participating Partners & Working Group Contributors",
       readEnBtn: "Read the Phase 1 summary in English",
-      readCyBtn: "Darllenwch grynodeb Cam 1 yn y Gymraeg",
+      readCyBtn: "Read the Phase 1 summary in Welsh",
       partnerLogos: {
         title: "Early collaboration partners and contributors",
         desc: "These partners are part of a wider growing network of employers, funders, educators, charities, community organisations and civic stakeholders contributing to the work.",
