@@ -1,5 +1,6 @@
 import tailwindcss from '@tailwindcss/vite';
 import react from '@vitejs/plugin-react';
+import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { defineConfig } from 'vite';
@@ -12,6 +13,15 @@ function apiMiddlewarePlugin() {
     name: 'api-middleware',
     configureServer(server: any) {
       server.middlewares.use(async (req: any, res: any, next: any) => {
+        if (req.url === '/translations.txt' || req.url === '/translations.ts') {
+          const filePath = path.join(__dirname, 'src', 'lib', 'translations.ts');
+          if (fs.existsSync(filePath)) {
+            res.setHeader('Content-Type', 'text/plain; charset=utf-8');
+            res.end(fs.readFileSync(filePath, 'utf-8'));
+            return;
+          }
+        }
+
         if (req.url === '/api/health' || req.url === '/health') {
           res.setHeader('Content-Type', 'application/json');
           res.end(JSON.stringify({
