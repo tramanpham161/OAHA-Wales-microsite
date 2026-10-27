@@ -40,6 +40,15 @@ function apiMiddlewarePlugin() {
           }
         }
 
+        if (req.url === '/LearnerJourneyFlow.txt' || req.url === '/LearnerJourneyFlow.tsx') {
+          const filePath = path.join(__dirname, 'src', 'components', 'LearnerJourneyFlow.tsx');
+          if (fs.existsSync(filePath)) {
+            res.setHeader('Content-Type', 'text/plain; charset=utf-8');
+            res.end(fs.readFileSync(filePath, 'utf-8'));
+            return;
+          }
+        }
+
         if (req.url === '/api/health' || req.url === '/health') {
           res.setHeader('Content-Type', 'application/json');
           res.end(JSON.stringify({
