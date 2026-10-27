@@ -1,11 +1,15 @@
 import express from "express";
 import path from "path";
 import fs from "fs";
+import { fileURLToPath } from "node:url";
 import dotenv from "dotenv";
 import { GoogleGenAI, Type } from "@google/genai";
 import { Resend } from "resend";
 import PDFDocument from "pdfkit";
-import { WHITEPAPER_PAGES } from "./src/lib/whitepaper-data.js";
+import { WHITEPAPER_PAGES } from "./src/lib/whitepaper-data.ts";
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 // Load environment variables for local testing
 dotenv.config();
