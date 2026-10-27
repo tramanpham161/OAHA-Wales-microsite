@@ -45,6 +45,31 @@ app.get(["/api/health", "/health"], (req, res) => {
   });
 });
 
+// Welsh White Paper PDF Endpoint
+app.get(["/whitepaper-cy.pdf", "/papur-gwyn.pdf", "/Cyflymu_Symudedd_Cymdeithasol_yng_Nghymru_Papur_Gwyn.pdf"], (req, res) => {
+  const possibleWelshPaths = [
+    path.join(process.cwd(), "public", "whitepaper-cy.pdf"),
+    path.join(process.cwd(), "dist", "whitepaper-cy.pdf"),
+    path.join(process.cwd(), "whitepaper-cy.pdf"),
+    path.join(process.cwd(), "public", "assets", "aistudio", "Cyflymu_Symudedd_Cymdeithasol_yng_Nghymru_Papur_Gwyn_8a135431.pdf"),
+    path.join(process.cwd(), "public", "Cyflymu_Symudedd_Cymdeithasol_yng_Nghymru_Papur_Gwyn.pdf"),
+    path.join(__dirname, "public", "whitepaper-cy.pdf"),
+    path.join(__dirname, "dist", "whitepaper-cy.pdf"),
+    path.join(__dirname, "..", "public", "whitepaper-cy.pdf"),
+    path.join(__dirname, "..", "dist", "whitepaper-cy.pdf")
+  ];
+
+  for (const p of possibleWelshPaths) {
+    if (fs.existsSync(p)) {
+      res.setHeader("Content-Type", "application/pdf");
+      res.setHeader("Content-Disposition", "inline; filename=Cyflymu_Symudedd_Cymdeithasol_yng_Nghymru_Papur_Gwyn.pdf");
+      return res.sendFile(p);
+    }
+  }
+
+  res.status(404).send("Welsh White Paper PDF not found.");
+});
+
 // Dynamic PDF Generation Endpoint serving 'whitepaper.pdf' inline for a seamless new-tab experience
 app.get("/whitepaper.pdf", (req, res) => {
   try {
@@ -374,7 +399,8 @@ app.post(["/api/gemini/analyze-pitch", "/gemini/analyze-pitch"], async (req, res
       }
     });
 
-    const parsedData = JSON.parse(response.text.trim());
+    const rawText = response.text?.trim() || "{}";
+    const parsedData = JSON.parse(rawText);
     res.json({ isMockMode: false, evaluation: parsedData });
 
   } catch (error: any) {
@@ -453,7 +479,8 @@ app.post(["/api/gemini/content-assistant", "/gemini/content-assistant"], async (
       }
     });
 
-    const parsedData = JSON.parse(response.text.trim());
+    const rawContentText = response.text?.trim() || "{}";
+    const parsedData = JSON.parse(rawContentText);
     res.json({ isMockMode: false, content: parsedData });
 
   } catch (error: any) {
