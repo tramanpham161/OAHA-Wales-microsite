@@ -27,6 +27,49 @@ import LearnerJourneyFlow from "./components/LearnerJourneyFlow";
 import WalesEcosystemMap from "./components/WalesEcosystemMap";
 import walesValleyHero from "./assets/images/wales_valley_hero_1779371646935.png";
 
+function UkFlagIcon({ className = "w-5 h-3.5" }: { className?: string }) {
+  return (
+    <svg
+      viewBox="0 0 60 40"
+      className={`${className} rounded-[2px] shadow-xs inline-block shrink-0 overflow-hidden ring-1 ring-white/20`}
+      aria-hidden="true"
+    >
+      <rect width="60" height="40" fill="#012169" />
+      <path d="M0,0 L60,40 M60,0 L0,40" stroke="#FFFFFF" strokeWidth="8" />
+      <path d="M0,0 L60,40 M60,0 L0,40" stroke="#C8102E" strokeWidth="4" />
+      <path d="M30,0 v40 M0,20 h60" stroke="#FFFFFF" strokeWidth="12" />
+      <path d="M30,0 v40 M0,20 h60" stroke="#C8102E" strokeWidth="7" />
+    </svg>
+  );
+}
+
+function WelshFlagIcon({ className = "w-5 h-3.5" }: { className?: string }) {
+  return (
+    <svg
+      viewBox="0 0 60 40"
+      className={`${className} rounded-[2px] shadow-xs inline-block shrink-0 overflow-hidden ring-1 ring-white/20`}
+      aria-hidden="true"
+    >
+      <rect width="60" height="20" fill="#FFFFFF" />
+      <rect y="20" width="60" height="20" fill="#00AB39" />
+      <g fill="#D30731">
+        {/* Dragon head and neck */}
+        <path d="M38,10 Q42,9 44,12 Q46,13 47,12 Q45,15 42,16 Q39,18 36,17 Q34,14 38,10 Z" />
+        {/* Dragon body and wings */}
+        <path d="M22,18 C20,13 26,10 32,13 C35,10 40,11 41,15 C39,18 36,19 33,21 C30,22 25,23 22,25 C20,24 19,20 22,18 Z" />
+        {/* Raised wings */}
+        <path d="M26,12 L31,5 L33,11 L38,6 L38,13 Z" />
+        {/* Tail */}
+        <path d="M21,24 Q16,25 14,21 Q12,23 11,20 Q10,23 8,22 Q11,25 16,26 Q19,27 22,25 Z" />
+        {/* Legs and claws */}
+        <path d="M24,25 L23,30 L26,30 L25,26 Z" />
+        <path d="M33,23 L32,30 L35,30 L35,24 Z" />
+        <path d="M38,21 L40,28 L43,28 L41,22 Z" />
+      </g>
+    </svg>
+  );
+}
+
 export default function App() {
   // Mobile Navigation menu state
   const [mobileMenuOpen, setMobileMenuOpen] = useState<boolean>(false);
@@ -585,16 +628,25 @@ export default function App() {
               {/* Participating Partners Logos Section */}
               <PartnerLogos />
 
-              {/* Call To Action button relocated under participating partners */}
-              <div className="pt-1 pb-4 flex justify-center">
+              {/* Call To Action buttons relocated under participating partners */}
+              <div className="pt-2 pb-4 flex flex-col sm:flex-row items-center justify-center gap-4">
                 <a
                   href="/whitepaper.pdf"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="inline-flex items-center gap-2.5 px-6 py-3.5 bg-[#2E536B] hover:bg-[#2E536B]/95 text-white text-xs font-semibold uppercase tracking-widest transition-all rounded shadow-xs"
                 >
-                  <Download className="w-4 h-4 text-[#FF9900]" />
-                  <span>Read the Phase 1 summary</span>
+                  <UkFlagIcon className="w-5 h-3.5" />
+                  <span>Read the Phase 1 summary in English</span>
+                </a>
+                <a
+                  href="/whitepaper-cy.pdf"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2.5 px-6 py-3.5 bg-[#2E536B] hover:bg-[#2E536B]/95 text-white text-xs font-semibold uppercase tracking-widest transition-all rounded shadow-xs"
+                >
+                  <WelshFlagIcon className="w-5 h-3.5" />
+                  <span>Read the Phase 1 summary in Welsh</span>
                 </a>
               </div>
 
