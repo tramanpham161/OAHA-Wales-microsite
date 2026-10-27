@@ -54,6 +54,11 @@ export interface Translations {
     partnersTitle: string;
     readEnBtn: string;
     readCyBtn: string;
+    partnerLogos: {
+      title: string;
+      desc: string;
+      getInvolvedLink: string;
+    };
   };
   journey: {
     tag: string;
@@ -157,13 +162,19 @@ export interface Translations {
     };
     form: {
       fullName: string;
+      namePlaceholder: string;
       organisation: string;
+      orgPlaceholder: string;
       role: string;
+      rolePlaceholder: string;
       orgType: string;
       email: string;
+      emailPlaceholder: string;
       phone: string;
+      phonePlaceholder: string;
       involvementOption: string;
       message: string;
+      messagePlaceholder: string;
       submitBtn: string;
       submittingBtn: string;
     };
@@ -207,6 +218,8 @@ export interface Translations {
   };
   footer: {
     mainText: string;
+    returnMain: string;
+    orConnect: string;
     copyright: string;
     bilingualNotice: string;
   };
@@ -237,7 +250,7 @@ export const translations: Record<Language, Translations> = {
       btnLearning: "WHAT WE ARE LEARNING",
       btnSupport: "SUPPORT THE NEXT PHASE",
       readEnBtn: "Read the Phase 1 summary in English",
-      readCyBtn: "Read the Phase 1 summary in Welsh"
+      readCyBtn: "Darllenwch grynodeb Cam 1 yn y Gymraeg"
     },
     whyNow: {
       tag: "Strategic Convergence",
@@ -314,7 +327,12 @@ export const translations: Record<Language, Translations> = {
       ],
       partnersTitle: "Participating Partners & Working Group Contributors",
       readEnBtn: "Read the Phase 1 summary in English",
-      readCyBtn: "Read the Phase 1 summary in Welsh"
+      readCyBtn: "Darllenwch grynodeb Cam 1 yn y Gymraeg",
+      partnerLogos: {
+        title: "Early collaboration partners and contributors",
+        desc: "These partners are part of a wider growing network of employers, funders, educators, charities, community organisations and civic stakeholders contributing to the work.",
+        getInvolvedLink: "See how to get involved"
+      }
     },
     journey: {
       tag: "Systemic Friction",
@@ -515,13 +533,19 @@ export const translations: Record<Language, Translations> = {
       },
       form: {
         fullName: "Full Name",
+        namePlaceholder: "Your Name",
         organisation: "Organisation",
+        orgPlaceholder: "Organisation Name",
         role: "Role / Job Title",
+        rolePlaceholder: "e.g. Director, Partnership Manager",
         orgType: "Organisation Type",
         email: "Email Address",
+        emailPlaceholder: "name@organisation.org.uk",
         phone: "Phone Number",
+        phonePlaceholder: "e.g., 07123 456789",
         involvementOption: "How would you like to get involved?",
         message: "Message / anything useful to know",
+        messagePlaceholder: "Please share details about your objectives or how we can best collaborate...",
         submitBtn: "Submit Inquiry",
         submittingBtn: "Submitting..."
       },
@@ -590,6 +614,8 @@ export const translations: Record<Language, Translations> = {
     },
     footer: {
       mainText: "This is a public progress update on a place-based collaboration helping Wales connect growth, skills, employers, community insight and youth voice into clearer routes for young people.",
+      returnMain: "Return to our main site at",
+      orConnect: "or connect with us on LinkedIn:",
       copyright: "© 2026 OAHA UK. Operational Update Initiative.",
       bilingualNotice: "Available in English and Welsh / Ar gael yn Saesneg ac yn Gymraeg."
     }
@@ -617,8 +643,8 @@ export const translations: Record<Language, Translations> = {
       p3: "Rydym bellach yn symud o fewnwelediad i weithredu: cryfhau'r sylfaen dystiolaeth, profi blaenoriaethau gyda phartneriaid a llunio'r cam nesaf o gyflenwi seiliedig ar le.",
       btnLearning: "BETH RYDYM YN EI DDYSGU",
       btnSupport: "CEFNOGI'R CAM NESAF",
-      readEnBtn: "Read the Phase 1 summary in English",
-      readCyBtn: "Read the Phase 1 summary in Welsh"
+      readEnBtn: "Darllenwch grynodeb Cam 1 yn Saesneg",
+      readCyBtn: "Darllenwch grynodeb Cam 1 yn y Gymraeg"
     },
     whyNow: {
       tag: "Cydgyfeirio Strategol",
@@ -694,8 +720,13 @@ export const translations: Record<Language, Translations> = {
         }
       ],
       partnersTitle: "Partneriaid a Chyfranwyr y Gweithgor",
-      readEnBtn: "Read the Phase 1 summary in English",
-      readCyBtn: "Read the Phase 1 summary in Welsh"
+      readEnBtn: "Darllenwch grynodeb Cam 1 yn Saesneg",
+      readCyBtn: "Darllenwch grynodeb Cam 1 yn y Gymraeg",
+      partnerLogos: {
+        title: "Partneriaid cydweithredu a chyfranwyr cynnar",
+        desc: "Mae'r partneriaid hyn yn rhan o rwydwaith cynyddol ehangach o gyflogwyr, cyllidwyr, addysgwyr, elusennau, sefydliadau cymunedol a rhanddeiliaid dinesig sy'n cyfrannu at y gwaith.",
+        getInvolvedLink: "Gweld sut i gymryd rhan"
+      }
     },
     journey: {
       tag: "Ffrithiant Systemig",
@@ -896,13 +927,19 @@ export const translations: Record<Language, Translations> = {
       },
       form: {
         fullName: "Enw Llawn",
+        namePlaceholder: "Eich Enw",
         organisation: "Sefydliad",
+        orgPlaceholder: "Enw'r Sefydliad",
         role: "Rôl / Teitl Swydd",
+        rolePlaceholder: "e.e. Cyfarwyddwr, Rheolwr Partneriaeth",
         orgType: "Math o Sefydliad",
         email: "Cyfeiriad E-bost",
+        emailPlaceholder: "enw@sefydliad.cymru",
         phone: "Rhif Ffôn",
+        phonePlaceholder: "e.e., 07123 456789",
         involvementOption: "Sut hoffech chi gymryd rhan?",
         message: "Neges / unrhyw beth defnyddiol i'w wybod",
+        messagePlaceholder: "Rhannwch fanylion am eich amcanion neu sut y gallwn gydweithio orau...",
         submitBtn: "Cyflwyno Ymholiad",
         submittingBtn: "Yn cyflwyno..."
       },
@@ -971,6 +1008,8 @@ export const translations: Record<Language, Translations> = {
     },
     footer: {
       mainText: "Mae hwn yn ddiweddariad cynnydd cyhoeddus ar gydweithrediad seiliedig ar le sy'n helpu Cymru i gysylltu twf, sgiliau, cyflogwyr, mewnwelediad cymunedol a llais ieuenctid yn llwybrau cliriach i bobl ifanc.",
+      returnMain: "Dychwelwch i'n prif wefan yn",
+      orConnect: "neu cysylltwch â ni ar LinkedIn:",
       copyright: "© 2026 OAHA UK. Menter Diweddaru Gweithredol.",
       bilingualNotice: "Available in English and Welsh / Ar gael yn Saesneg ac yn Gymraeg."
     }
