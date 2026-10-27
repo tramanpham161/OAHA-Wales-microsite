@@ -26,6 +26,7 @@ import PartnerLogos from "./components/PartnerLogos";
 import LearnerJourneyFlow from "./components/LearnerJourneyFlow";
 import WalesEcosystemMap from "./components/WalesEcosystemMap";
 import walesValleyHero from "./assets/images/wales_valley_hero_1779371646935.png";
+import { translations, Language } from "./lib/translations";
 
 function UkFlagIcon({ className = "w-5 h-3.5" }: { className?: string }) {
   return (
@@ -71,6 +72,28 @@ function WelshFlagIcon({ className = "w-5 h-3.5" }: { className?: string }) {
 }
 
 export default function App() {
+  // Bilingual state with localStorage persistence
+  const [lang, setLang] = useState<Language>(() => {
+    if (typeof window !== "undefined") {
+      const stored = localStorage.getItem("oaha_lang") as Language;
+      if (stored === "en" || stored === "cy") return stored;
+      const params = new URLSearchParams(window.location.search);
+      const urlLang = params.get("lang") as Language;
+      if (urlLang === "en" || urlLang === "cy") return urlLang;
+    }
+    return "en";
+  });
+
+  const handleSetLang = (newLang: Language) => {
+    setLang(newLang);
+    if (typeof window !== "undefined") {
+      localStorage.setItem("oaha_lang", newLang);
+      document.documentElement.lang = newLang;
+    }
+  };
+
+  const t = translations[lang];
+
   // Mobile Navigation menu state
   const [mobileMenuOpen, setMobileMenuOpen] = useState<boolean>(false);
 
@@ -100,70 +123,23 @@ export default function App() {
   const [mapSendError, setMapSendError] = useState<string | null>(null);
   const [isMapMockMode, setIsMapMockMode] = useState<boolean>(false);
 
-  // Core metrics & priorities
-
-  const WHY_NOW_CARDS = [
-    {
-      icon: MapPin,
-      title: "Place-based investment",
-      desc: "Long-term neighbourhood and regeneration investment creates a route to connect place funding with people outcomes.",
-      bgClass: "bg-[#2BB7BA]/10",
-      textClass: "text-[#2BB7BA]",
-      groupHoverBg: "group-hover:bg-[#2BB7BA]",
-      groupHoverText: "group-hover:text-[#2BB7BA]",
-      hoverBorder: "hover:border-[#2BB7BA]/60"
-    },
-    {
-      icon: GraduationCap,
-      title: "Skills, Education and Devolved Policy",
-      desc: "Welsh Government’s focus on current and future skills creates an opportunity to align education, training and employer demand.",
-      bgClass: "bg-[#FF9900]/10",
-      textClass: "text-[#FF9900]",
-      groupHoverBg: "group-hover:bg-[#FF9900]",
-      groupHoverText: "group-hover:text-[#FF9900]",
-      hoverBorder: "hover:border-[#FF9900]/60"
-    },
-    {
-      icon: Users,
-      title: "Youth Pathways and Support",
-      desc: "The Young Person’s Guarantee and Youth Hubs strengthen routes into education, training, employment and wider support.",
-      bgClass: "bg-[#3AB03A]/10",
-      textClass: "text-[#3AB03A]",
-      groupHoverBg: "group-hover:bg-[#3AB03A]",
-      groupHoverText: "group-hover:text-[#3AB03A]",
-      hoverBorder: "hover:border-[#3AB03A]/60"
-    },
-    {
-      icon: Briefcase,
-      title: "Business and enterprise investment",
-      desc: "Investment in SMEs, technology and growth sectors needs to translate into visible routes for young people.",
-      bgClass: "bg-[#986430]/10",
-      textClass: "text-[#986430]",
-      groupHoverBg: "group-hover:bg-[#986430]",
-      groupHoverText: "group-hover:text-[#986430]",
-      hoverBorder: "hover:border-[#986430]/60"
-    },
-    {
-      icon: BarChart3,
-      title: "Evidence for Regional Action",
-      desc: "Evidence from partners, open data and lived experience points to the need for a clearer shared picture of what exists, where the gaps are, and where coordinated action could make the greatest difference.",
-      bgClass: "bg-[#969696]/10",
-      textClass: "text-[#969696]",
-      groupHoverBg: "group-hover:bg-[#969696]",
-      groupHoverText: "group-hover:text-[#969696]",
-      hoverBorder: "hover:border-[#969696]/60"
-    },
-    {
-      icon: Compass,
-      title: "New political and economic direction",
-      desc: "The focus on economic renewal, good jobs, procurement and Welsh-owned businesses makes this a timely moment to act.",
-      bgClass: "bg-[#2E536B]/10",
-      textClass: "text-[#2E536B]",
-      groupHoverBg: "group-hover:bg-[#2E536B]",
-      groupHoverText: "group-hover:text-[#2E536B]",
-      hoverBorder: "hover:border-[#2E536B]/60"
-    }
+  // Core metrics & priorities mapped to active language
+  const WHY_NOW_ICONS = [MapPin, GraduationCap, Users, Briefcase, BarChart3, Compass];
+  const WHY_NOW_STYLES = [
+    { bgClass: "bg-[#2BB7BA]/10", textClass: "text-[#2BB7BA]", groupHoverBg: "group-hover:bg-[#2BB7BA]", groupHoverText: "group-hover:text-[#2BB7BA]", hoverBorder: "hover:border-[#2BB7BA]/60" },
+    { bgClass: "bg-[#FF9900]/10", textClass: "text-[#FF9900]", groupHoverBg: "group-hover:bg-[#FF9900]", groupHoverText: "group-hover:text-[#FF9900]", hoverBorder: "hover:border-[#FF9900]/60" },
+    { bgClass: "bg-[#3AB03A]/10", textClass: "text-[#3AB03A]", groupHoverBg: "group-hover:bg-[#3AB03A]", groupHoverText: "group-hover:text-[#3AB03A]", hoverBorder: "hover:border-[#3AB03A]/60" },
+    { bgClass: "bg-[#986430]/10", textClass: "text-[#986430]", groupHoverBg: "group-hover:bg-[#986430]", groupHoverText: "group-hover:text-[#986430]", hoverBorder: "hover:border-[#986430]/60" },
+    { bgClass: "bg-[#969696]/10", textClass: "text-[#969696]", groupHoverBg: "group-hover:bg-[#969696]", groupHoverText: "group-hover:text-[#969696]", hoverBorder: "hover:border-[#969696]/60" },
+    { bgClass: "bg-[#2E536B]/10", textClass: "text-[#2E536B]", groupHoverBg: "group-hover:bg-[#2E536B]", groupHoverText: "group-hover:text-[#2E536B]", hoverBorder: "hover:border-[#2E536B]/60" }
   ];
+
+  const WHY_NOW_CARDS = t.whyNow.cards.map((card, idx) => ({
+    icon: WHY_NOW_ICONS[idx % WHY_NOW_ICONS.length],
+    title: card.title,
+    desc: card.desc,
+    ...WHY_NOW_STYLES[idx % WHY_NOW_STYLES.length]
+  }));
 
   const handleFormSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -251,7 +227,7 @@ export default function App() {
 
       {/* Premium Corporate Navigation Header */}
       <header className="bg-white/80 backdrop-blur border-b border-[#969696]/30 px-6 py-3.5 sticky top-[4px] z-50">
-        <div className="max-w-6xl mx-auto flex items-center justify-between">
+        <div className="max-w-6xl mx-auto flex items-center justify-between gap-3">
           <div className="flex items-center gap-3 cursor-pointer shrink-0" onClick={() => {
             const elem = document.getElementById("preview-sec-hero");
             if (elem) elem.scrollIntoView({ behavior: "smooth" });
@@ -260,17 +236,17 @@ export default function App() {
             <span className="font-semibold tracking-widest text-[#2E536B] text-sm uppercase">OAHA</span>
           </div>
 
-          {/* Desktop Navigation menu with 9 sections */}
+          {/* Desktop Navigation menu with 8 sections */}
           <nav className="hidden xl:flex items-center gap-3 xl:gap-4.5">
             {[
-              { label: "Why Now", id: "preview-sec-why-now", hover: "hover:text-[#2BB7BA]" },
-              { label: "Phase 1 Summary", id: "preview-sec-story-so-far", hover: "hover:text-[#FF9900]" },
-              { label: "The Gaps", id: "preview-sec-ecosystem-friction", hover: "hover:text-[#3AB03A]" },
-              { label: "Phase 2 Plan", id: "preview-sec-whitepaper", hover: "hover:text-[#986430]" },
-              { label: "The System", id: "preview-sec-why-this-matters", hover: "hover:text-[#2E536B]" },
-              { label: "Ecosystem Map", id: "preview-sec-ecosystem-map", hover: "hover:text-[#2BB7BA]" },
-              { label: "Collaboration", id: "preview-sec-what-we-need-now", hover: "hover:text-[#FF9900]" },
-              { label: "Coordination", id: "preview-sec-coordination", hover: "hover:text-[#3AB03A]" }
+              { label: t.nav.whyNow, id: "preview-sec-why-now", hover: "hover:text-[#2BB7BA]" },
+              { label: t.nav.phase1Summary, id: "preview-sec-story-so-far", hover: "hover:text-[#FF9900]" },
+              { label: t.nav.theGaps, id: "preview-sec-ecosystem-friction", hover: "hover:text-[#3AB03A]" },
+              { label: t.nav.phase2Plan, id: "preview-sec-whitepaper", hover: "hover:text-[#986430]" },
+              { label: t.nav.theSystem, id: "preview-sec-why-this-matters", hover: "hover:text-[#2E536B]" },
+              { label: t.nav.ecosystemMap, id: "preview-sec-ecosystem-map", hover: "hover:text-[#2BB7BA]" },
+              { label: t.nav.collaboration, id: "preview-sec-what-we-need-now", hover: "hover:text-[#FF9900]" },
+              { label: t.nav.coordination, id: "preview-sec-coordination", hover: "hover:text-[#3AB03A]" }
             ].map((item) => (
               <button
                 key={item.id}
@@ -283,24 +259,52 @@ export default function App() {
                 {item.label}
               </button>
             ))}
+          </nav>
+
+          {/* Right Header Area: Language Switcher + Get Involved / Menu */}
+          <div className="flex items-center gap-2 sm:gap-3 shrink-0">
+            {/* Always-visible Language Switcher (Desktop & Mobile) */}
+            <div className="flex items-center p-1 bg-slate-100 rounded-md border border-slate-200 shadow-xs">
+              <button
+                onClick={() => handleSetLang("en")}
+                className={`px-2 sm:px-2.5 py-1 text-[11px] font-bold tracking-wider uppercase rounded transition-all cursor-pointer flex items-center gap-1.5 ${
+                  lang === "en" ? "bg-white text-[#2E536B] shadow-xs" : "text-slate-500 hover:text-slate-900"
+                }`}
+                title="Switch website to English"
+              >
+                <UkFlagIcon className="w-4 h-2.5" />
+                <span className="hidden sm:inline">English</span>
+                <span className="sm:hidden">EN</span>
+              </button>
+              <button
+                onClick={() => handleSetLang("cy")}
+                className={`px-2 sm:px-2.5 py-1 text-[11px] font-bold tracking-wider uppercase rounded transition-all cursor-pointer flex items-center gap-1.5 ${
+                  lang === "cy" ? "bg-white text-[#2E536B] shadow-xs" : "text-slate-500 hover:text-slate-900"
+                }`}
+                title="Newid gwefan i'r Gymraeg (Switch website to Welsh)"
+              >
+                <WelshFlagIcon className="w-4 h-2.5" />
+                <span className="hidden sm:inline">Cymraeg</span>
+                <span className="sm:hidden">CY</span>
+              </button>
+            </div>
+
             <button
               onClick={() => {
                 const elem = document.getElementById("preview-sec-get-involved");
                 if (elem) elem.scrollIntoView({ behavior: "smooth" });
               }}
-              className="text-[10px] xl:text-[11px] bg-[#2E536B] hover:bg-[#FF9900] active:bg-[#3AB03A] text-white px-3.5 py-2 font-bold tracking-wider uppercase transition-all duration-300 cursor-pointer rounded-sm"
+              className="hidden sm:inline-block text-[10px] xl:text-[11px] bg-[#2E536B] hover:bg-[#FF9900] active:bg-[#3AB03A] text-white px-3.5 py-2 font-bold tracking-wider uppercase transition-all duration-300 cursor-pointer rounded-sm"
             >
-              Get Involved
+              {t.nav.getInvolved}
             </button>
-          </nav>
 
-          {/* Mobile navigation trigger */}
-          <div className="xl:hidden flex items-center">
+            {/* Mobile navigation toggle */}
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="px-2.5 py-1.5 border border-[#969696]/20 rounded-md hover:bg-slate-50 flex items-center gap-1 cursor-pointer focus:outline-none"
+              className="xl:hidden px-2.5 py-1.5 border border-[#969696]/20 rounded-md hover:bg-slate-50 flex items-center gap-1 cursor-pointer focus:outline-none"
             >
-              <span className="text-[10px] font-bold uppercase tracking-wider text-[#2E536B]">Menu</span>
+              <span className="text-[10px] font-bold uppercase tracking-wider text-[#2E536B]">{t.nav.menu}</span>
               {mobileMenuOpen ? <X className="w-3.5 h-3.5" /> : <Menu className="w-3.5 h-3.5" />}
             </button>
           </div>
@@ -308,16 +312,41 @@ export default function App() {
 
         {/* Mobile Dropdown Panel */}
         {mobileMenuOpen && (
-          <div className="xl:hidden mt-3 border-t border-[#969696]/20 pt-3 pb-2 space-y-1 bg-white rounded-lg p-3 shadow-md">
+          <div className="xl:hidden mt-3 border-t border-[#969696]/20 pt-3 pb-2 space-y-2 bg-white rounded-lg p-3 shadow-md">
+            {/* Mobile Language Switcher Row */}
+            <div className="flex items-center justify-between pb-2 border-b border-slate-100 px-1">
+              <span className="text-[10px] font-bold uppercase tracking-wider text-slate-500">Iaith / Language</span>
+              <div className="flex items-center p-0.5 bg-slate-100 rounded border border-slate-200">
+                <button
+                  onClick={() => handleSetLang("en")}
+                  className={`px-2.5 py-1 text-xs font-bold rounded flex items-center gap-1.5 ${
+                    lang === "en" ? "bg-white text-[#2E536B] shadow-xs" : "text-slate-600"
+                  }`}
+                >
+                  <UkFlagIcon className="w-3.5 h-2.5" />
+                  <span>English</span>
+                </button>
+                <button
+                  onClick={() => handleSetLang("cy")}
+                  className={`px-2.5 py-1 text-xs font-bold rounded flex items-center gap-1.5 ${
+                    lang === "cy" ? "bg-white text-[#2E536B] shadow-xs" : "text-slate-600"
+                  }`}
+                >
+                  <WelshFlagIcon className="w-3.5 h-2.5" />
+                  <span>Cymraeg</span>
+                </button>
+              </div>
+            </div>
+
             {[
-              { label: "Why Now", id: "preview-sec-why-now" },
-              { label: "Phase 1 Summary", id: "preview-sec-story-so-far" },
-              { label: "The Gaps", id: "preview-sec-ecosystem-friction" },
-              { label: "Phase 2 Plan", id: "preview-sec-whitepaper" },
-              { label: "The System", id: "preview-sec-why-this-matters" },
-              { label: "Ecosystem Map", id: "preview-sec-ecosystem-map" },
-              { label: "Collaboration", id: "preview-sec-what-we-need-now" },
-              { label: "Coordination", id: "preview-sec-coordination" }
+              { label: t.nav.whyNow, id: "preview-sec-why-now" },
+              { label: t.nav.phase1Summary, id: "preview-sec-story-so-far" },
+              { label: t.nav.theGaps, id: "preview-sec-ecosystem-friction" },
+              { label: t.nav.phase2Plan, id: "preview-sec-whitepaper" },
+              { label: t.nav.theSystem, id: "preview-sec-why-this-matters" },
+              { label: t.nav.ecosystemMap, id: "preview-sec-ecosystem-map" },
+              { label: t.nav.collaboration, id: "preview-sec-what-we-need-now" },
+              { label: t.nav.coordination, id: "preview-sec-coordination" }
             ].map((item) => (
               <button
                 key={item.id}
@@ -339,7 +368,7 @@ export default function App() {
               }}
               className="block w-full text-center px-4 py-2.5 mt-2 bg-[#2E536B] hover:bg-[#FF9900] hover:scale-[1.01] text-white text-xs font-bold uppercase tracking-wider transition-all rounded-sm"
             >
-              Get Involved
+              {t.nav.getInvolved}
             </button>
           </div>
         )}
@@ -377,28 +406,22 @@ export default function App() {
               <div className="lg:col-span-7 space-y-4 text-left relative z-10">
                 <span className="inline-flex items-center gap-1.5 px-3 py-1.5 text-[10px] font-semibold tracking-wider text-[#2BB7BA] bg-[#2BB7BA]/10 rounded-full uppercase">
                   <Sparkles className="w-3.5 h-3.5 text-[#FF9900]" />
-                  <span>Wales Progress update</span>
+                  <span>{t.hero.tag}</span>
                 </span>
                 
                 <h1 className="text-4xl sm:text-[3.25rem] lg:text-[3.85rem] font-light tracking-tight text-[#2E536B] leading-[1.12] font-sans">
-                  Turning regional growth <br />
-                  <span className="text-[#3AB03A] font-normal">into visible opportunity</span>
+                  {t.hero.titleMain} <br />
+                  <span className="text-[#3AB03A] font-normal">{t.hero.titleAccent}</span>
                 </h1>
                 
                 <p className="text-sm uppercase tracking-wider text-[#51615a] font-semibold leading-relaxed">
-                  A place-based collaboration helping Wales connect investment, skills, employers, community insight and youth voice into clearer routes for young people.
+                  {t.hero.lead}
                 </p>
                 
                 <div className="text-sm sm:text-base text-[#51615a] max-w-xl leading-relaxed space-y-3">
-                  <p>
-                    Wales has significant commitment, activity and investment already underway. But young people do not always see how that connects to their future.
-                  </p>
-                  <p>
-                    This work is helping build the connective infrastructure between economic growth, employer demand, local provision and trusted community pathways, so opportunity becomes easier to see, access and move through.
-                  </p>
-                  <p>
-                    We are now moving from insight into action: strengthening the evidence base, testing priorities with partners and shaping the next stage of place-based delivery.
-                  </p>
+                  <p>{t.hero.p1}</p>
+                  <p>{t.hero.p2}</p>
+                  <p>{t.hero.p3}</p>
                 </div>
                 
                 <div className="flex flex-col sm:flex-row gap-3 items-stretch sm:items-center pt-1">
@@ -409,7 +432,7 @@ export default function App() {
                     }}
                     className="px-8 py-3.5 bg-[#2E536B] text-white text-xs font-semibold uppercase tracking-widest hover:opacity-95 transition-all text-center flex items-center justify-center gap-2 cursor-pointer shadow-xs rounded-xs"
                   >
-                    <span>WHAT WE ARE LEARNING</span>
+                    <span>{t.hero.btnLearning}</span>
                     <ArrowDown className="w-3.5 h-3.5 text-[#FF9900]" />
                   </button>
                   <button
@@ -419,7 +442,7 @@ export default function App() {
                     }}
                     className="px-8 py-3.5 border-2 border-[#2E536B] text-[#2E536B] text-xs font-semibold uppercase tracking-widest hover:bg-[#2E536B]/5 transition-all text-center cursor-pointer flex items-center justify-center gap-1.5 rounded-xs"
                   >
-                    <span>SUPPORT THE NEXT PHASE</span>
+                    <span>{t.hero.btnSupport}</span>
                     <ArrowDown className="w-3.5 h-3.5 text-[#3AB03A]" />
                   </button>
                 </div>
@@ -444,15 +467,15 @@ export default function App() {
               {/* WHY NOW? SECTION */}
               <div className="space-y-6" id="why-now-section">
                 <div className="space-y-2 max-w-3xl">
-                  <span className="text-xs font-bold uppercase tracking-widest text-[#FF9900] block">Strategic Convergence</span>
+                  <span className="text-xs font-bold uppercase tracking-widest text-[#FF9900] block">{t.whyNow.tag}</span>
                   <h2 className="text-3xl font-normal text-[#2E536B] tracking-tight">
-                    Why Now?
+                    {t.whyNow.title}
                   </h2>
                   <p className="text-sm sm:text-base text-[#51615a] leading-relaxed">
-                    Policy, funding, business need and youth voice are converging. Wales has a rare opportunity to make sure regional growth is not just planned at system level, but seen and felt by young people, families and communities.
+                    {t.whyNow.p1}
                   </p>
                   <p className="text-sm sm:text-base text-[#51615a] leading-relaxed">
-                    The next step is to connect future skills, employer demand, education pathways and community support so young people can understand the opportunities growing around them early enough to prepare for them.
+                    {t.whyNow.p2}
                   </p>
                 </div>
 
@@ -477,9 +500,9 @@ export default function App() {
 
                 {/* Bottom text: connective opportunity */}
                 <div className="bg-white border border-[#969696]/20 p-6 sm:p-8 rounded-2xl max-w-3xl mx-auto text-center space-y-2 shadow-xs font-sans mt-8">
-                  <span className="text-[10px] font-mono font-bold uppercase tracking-widest text-[#FF9900]">Connective Action</span>
+                  <span className="text-[10px] font-mono font-bold uppercase tracking-widest text-[#FF9900]">{t.whyNow.connectiveTag}</span>
                   <p className="text-[#51615a] leading-relaxed max-w-2xl mx-auto font-sans font-medium text-sm sm:text-base">
-                    The opportunity now is to connect these forces before investment, skills planning and youth support continue to develop in separate lanes.
+                    {t.whyNow.connectiveText}
                   </p>
                 </div>
               </div>
@@ -493,26 +516,26 @@ export default function App() {
             <div className="max-w-6xl mx-auto space-y-10">
 
               <div className="max-w-4xl space-y-3 text-left">
-                <span className="text-xs font-bold uppercase tracking-widest text-[#FF9900] block">Context Summary</span>
+                <span className="text-xs font-bold uppercase tracking-widest text-[#FF9900] block">{t.phase1.tag}</span>
                 <h2 className="text-3xl font-normal text-[#2E536B] tracking-tight">
-                  What we have learnt and built so far
+                  {t.phase1.title}
                 </h2>
                 
                 <p className="text-sm sm:text-base text-[#51615a] leading-relaxed">
-                  Phase 1 deliberately focused on understanding the system before jumping to solutions. This matters because well-intentioned activity can still miss the point if it is not tested against the real experience of young people, families, schools, employers and community organisations. Through partner engagement, discovery work, ecosystem mapping and journey analysis, the work has moved from shared intent to a clearer picture.
+                  {t.phase1.p1}
                 </p>
                 <p className="text-sm sm:text-base text-[#51615a] leading-relaxed">
-                  We now understand where pathways are strong, where they are fragmented, and where collective action could make the greatest difference.
+                  {t.phase1.p2}
                 </p>
                 <p className="text-sm sm:text-base text-[#51615a] leading-relaxed">
-                  This gives us the foundation for the next stage: connecting insight, evidence and partner action in a more coordinated way.
+                  {t.phase1.p3}
                 </p>
               </div>
  
               {/* Horizontal Milestones Timeline */}
               <div className="space-y-6 border-t border-[#969696]/20 pt-8">
                 <div className="space-y-1 text-center md:text-left">
-                  <h3 className="text-2xl font-normal text-[#2E536B] tracking-tight">Phase 1 Timeline</h3>
+                  <h3 className="text-2xl font-normal text-[#2E536B] tracking-tight">{t.phase1.timelineTitle}</h3>
                 </div>
                 
                 <div className="relative pt-4">
@@ -520,107 +543,31 @@ export default function App() {
                   <div className="hidden md:block absolute top-[2.1rem] left-10 right-10 h-[1.5px] bg-[#969696]/25 z-0" />
                   
                   <div className="grid grid-cols-1 md:grid-cols-5 gap-6 relative z-10">
-                    
-                    {/* Month: September */}
-                    <div className="space-y-2 relative text-left group flex flex-col justify-start">
-                      <div className="flex items-center gap-3 md:block">
-                        <div className="w-8 h-8 rounded-full bg-[#3AB03A] text-white flex items-center justify-center text-xs font-bold md:mb-2 shrink-0 shadow-xs border-2 border-white transition-transform duration-300 group-hover:scale-110">
-                          01
+                    {t.phase1.timeline.map((item, idx) => {
+                      const isLast = idx === t.phase1.timeline.length - 1;
+                      return (
+                        <div key={idx} className="space-y-2 relative text-left group flex flex-col justify-start">
+                          <div className="flex items-center gap-3 md:block">
+                            <div className={`w-8 h-8 rounded-full ${isLast ? "bg-[#FF9900] ring-4 ring-[#FF9900]/15" : "bg-[#3AB03A]"} text-white flex items-center justify-center text-xs font-bold md:mb-2 shrink-0 shadow-xs border-2 border-white transition-transform duration-300 group-hover:scale-110`}>
+                              {item.num}
+                            </div>
+                            <span className={`text-xs uppercase tracking-wider font-extrabold ${isLast ? "text-[#FF9900]" : "text-slate-400"}`}>
+                              {item.month}
+                            </span>
+                          </div>
+                          <div className="pl-11 md:pl-0 space-y-1.5 flex-1 flex flex-col justify-start">
+                            <div className="md:h-12 flex items-start">
+                              <h4 className={`text-sm font-bold uppercase tracking-wide leading-snug transition-colors ${isLast ? "text-[#FF9900]" : "text-slate-800 group-hover:text-[#3AB03A]"}`}>
+                                {item.title}
+                              </h4>
+                            </div>
+                            <p className="text-sm text-[#51615a] leading-relaxed border-t border-gray-100 pt-1.5 font-sans">
+                              {item.desc}
+                            </p>
+                          </div>
                         </div>
-                        <span className="text-xs uppercase tracking-wider font-extrabold text-slate-400">September</span>
-                      </div>
-                      <div className="pl-11 md:pl-0 space-y-1.5 flex-1 flex flex-col justify-start">
-                        <div className="md:h-12 flex items-start">
-                          <h4 className="text-sm font-bold text-slate-800 uppercase tracking-wide leading-snug group-hover:text-[#3AB03A] transition-colors">
-                            Cardiff UNGC roundtable
-                          </h4>
-                        </div>
-                        <p className="text-sm text-[#51615a] leading-relaxed border-t border-gray-100 pt-1.5">
-                          Early momentum and shared intent around a place-based approach.
-                        </p>
-                      </div>
-                    </div>
-
-                    {/* Month: December */}
-                    <div className="space-y-2 relative text-left group flex flex-col justify-start">
-                      <div className="flex items-center gap-3 md:block">
-                        <div className="w-8 h-8 rounded-full bg-[#3AB03A] text-white flex items-center justify-center text-xs font-bold md:mb-2 shrink-0 shadow-xs border-2 border-white transition-transform duration-300 group-hover:scale-110">
-                          02
-                        </div>
-                        <span className="text-xs uppercase tracking-wider font-extrabold text-slate-400">December</span>
-                      </div>
-                      <div className="pl-11 md:pl-0 space-y-1.5 flex-1 flex flex-col justify-start">
-                        <div className="md:h-12 flex items-start">
-                          <h4 className="text-sm font-bold text-slate-800 uppercase tracking-wide leading-snug group-hover:text-[#3AB03A] transition-colors">
-                            Call to Action
-                          </h4>
-                        </div>
-                        <p className="text-sm text-[#51615a] leading-relaxed border-t border-gray-100 pt-1.5">
-                          Partners agreed to move from discussion toward practical next steps.
-                        </p>
-                      </div>
-                    </div>
-
-                    {/* Month: January-February */}
-                    <div className="space-y-2 relative text-left group flex flex-col justify-start">
-                      <div className="flex items-center gap-3 md:block">
-                        <div className="w-8 h-8 rounded-full bg-[#3AB03A]/90 text-white flex items-center justify-center text-xs font-bold md:mb-2 shrink-0 shadow-xs border-2 border-white transition-transform duration-300 group-hover:scale-110">
-                          03
-                        </div>
-                        <span className="text-xs uppercase tracking-wider font-extrabold text-slate-400">Jan–Feb</span>
-                      </div>
-                      <div className="pl-11 md:pl-0 space-y-1.5 flex-1 flex flex-col justify-start">
-                        <div className="md:h-12 flex items-start">
-                          <h4 className="text-sm font-bold text-slate-800 uppercase tracking-wide leading-snug group-hover:text-[#3AB03A] transition-colors">
-                            Phase 1 discovery
-                          </h4>
-                        </div>
-                        <p className="text-sm text-[#51615a] leading-relaxed border-t border-gray-100 pt-1.5">
-                          Desktop research, open data scan, learner journey map and ecosystem scan.
-                        </p>
-                      </div>
-                    </div>
-
-                    {/* Month: March */}
-                    <div className="space-y-2 relative text-left group flex flex-col justify-start">
-                      <div className="flex items-center gap-3 md:block">
-                        <div className="w-8 h-8 rounded-full bg-[#3AB03A]/90 text-white flex items-center justify-center text-xs font-bold md:mb-2 shrink-0 shadow-xs border-2 border-white transition-transform duration-300 group-hover:scale-110">
-                          04
-                        </div>
-                        <span className="text-xs uppercase tracking-wider font-extrabold text-slate-400">March</span>
-                      </div>
-                      <div className="pl-11 md:pl-0 space-y-1.5 flex-1 flex flex-col justify-start">
-                        <div className="md:h-12 flex items-start">
-                          <h4 className="text-sm font-bold text-slate-800 uppercase tracking-wide leading-snug group-hover:text-[#3AB03A] transition-colors">
-                            Working session
-                          </h4>
-                        </div>
-                        <p className="text-sm text-[#51615a] leading-relaxed border-t border-gray-100 pt-1.5">
-                          Journey validated, handoff challenges sharpened and early priorities surfaced.
-                        </p>
-                      </div>
-                    </div>
-
-                    {/* Month: May/June (Different Circle Colour for future stage) */}
-                    <div className="space-y-2 relative text-left group flex flex-col justify-start">
-                      <div className="flex items-center gap-3 md:block">
-                        <div className="w-8 h-8 rounded-full bg-[#FF9900] text-white flex items-center justify-center text-xs font-bold md:mb-2 shrink-0 shadow-xs border-2 border-white transition-transform duration-300 group-hover:scale-110 ring-4 ring-[#FF9900]/15">
-                          05
-                        </div>
-                        <span className="text-xs uppercase tracking-wider font-extrabold text-[#FF9900]">May/June</span>
-                      </div>
-                      <div className="pl-11 md:pl-0 space-y-1.5 flex-1 flex flex-col justify-start">
-                        <div className="md:h-12 flex items-start">
-                          <h4 className="text-sm font-bold text-[#FF9900] uppercase tracking-wide leading-snug">
-                            Youth Validation and Partner Design
-                          </h4>
-                        </div>
-                        <p className="text-sm text-[#51615a] leading-relaxed border-t border-gray-100 pt-1.5">
-                          Tested emerging themes with young people and partners. Used design-led methods, including the LEGO Serious Play workshop, to explore where pathways connect, where they break, and which opportunities should move toward pilot design.
-                        </p>
-                      </div>
-                    </div>
-
+                      );
+                    })}
                   </div>
                 </div>
               </div>
@@ -637,7 +584,7 @@ export default function App() {
                   className="inline-flex items-center gap-2.5 px-6 py-3.5 bg-[#2E536B] hover:bg-[#2E536B]/95 text-white text-xs font-semibold uppercase tracking-widest transition-all rounded shadow-xs"
                 >
                   <UkFlagIcon className="w-5 h-3.5" />
-                  <span>Read the Phase 1 summary in English</span>
+                  <span>{t.phase1.readEnBtn}</span>
                 </a>
                 <a
                   href="/whitepaper-cy.pdf"
@@ -646,7 +593,7 @@ export default function App() {
                   className="inline-flex items-center gap-2.5 px-6 py-3.5 bg-[#2E536B] hover:bg-[#2E536B]/95 text-white text-xs font-semibold uppercase tracking-widest transition-all rounded shadow-xs"
                 >
                   <WelshFlagIcon className="w-5 h-3.5" />
-                  <span>Read the Phase 1 summary in Welsh</span>
+                  <span>{t.phase1.readCyBtn}</span>
                 </a>
               </div>
 
@@ -660,13 +607,13 @@ export default function App() {
             <div className="max-w-6xl mx-auto space-y-10">
 
               {/* Interactive 6-stage Learner Journey Flow block inside our Ecosystem in Friction */}
-              <LearnerJourneyFlow />
+              <LearnerJourneyFlow lang={lang} />
 
               {/* Key Takeaway Callout */}
               <div className="bg-white border border-[#969696]/20 p-6 sm:p-8 rounded-2xl max-w-3xl mx-auto text-center space-y-2 shadow-xs font-sans">
-                <span className="text-[10px] font-mono font-bold uppercase tracking-widest text-[#FF9900]">Key Takeaway</span>
+                <span className="text-[10px] font-mono font-bold uppercase tracking-widest text-[#FF9900]">{t.journey.takeawayTag}</span>
                 <p className="text-base text-[#51615a] leading-relaxed max-w-2xl mx-auto font-sans font-medium">
-                  This is why the next phase must connect evidence, growth, skills, employers, schools, families, community trust and youth voice; so Wales strengthens the pathways that already exist, rather than adding another disconnected programme.
+                  {t.journey.takeawayText}
                 </p>
               </div>
 
@@ -681,41 +628,41 @@ export default function App() {
                        {/* Introduction & Purpose Summary with Three Aims */}
               <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start text-left font-sans">
                 <div className="lg:col-span-7 space-y-6">
-                  <span className="text-xs font-bold uppercase tracking-widest text-[#FF9900] block">Strategic Document</span>
-                  <h2 className="text-3xl font-normal text-[#2E536B] tracking-tight">From insight to action</h2>
+                  <span className="text-xs font-bold uppercase tracking-widest text-[#FF9900] block">{t.phase2.tag}</span>
+                  <h2 className="text-3xl font-normal text-[#2E536B] tracking-tight">{t.phase2.title}</h2>
                   <p className="text-sm sm:text-base text-[#51615a] leading-relaxed">
-                    Phase 1 has helped build a clearer view of the ecosystem, the learner journey and the points where opportunity becomes harder to see or access.
+                    {t.phase2.p1}
                   </p>
                   <p className="text-sm sm:text-base text-[#51615a] leading-relaxed">
-                    The next phase is about moving from insight to coordinated action: strengthening the evidence base, deepening employer engagement and identifying a small number of practical, place-based pilots.
+                    {t.phase2.p2}
                   </p>
                   <p className="text-sm sm:text-base text-[#51615a] leading-relaxed">
-                    The ambition is to help partners work from a clearer shared picture of need, provision and opportunity, so future investment and delivery can be better targeted.
+                    {t.phase2.p3}
                   </p>
                 </div>
  
                 <div className="lg:col-span-5 bg-white border border-[#969696]/30 p-8 space-y-6 rounded shadow-sm">
-                  <h3 className="text-sm uppercase tracking-wider font-bold text-[#2E536B] border-b border-[#969696]/30 pb-2">Three Simple Aims:</h3>
+                  <h3 className="text-sm uppercase tracking-wider font-bold text-[#2E536B] border-b border-[#969696]/30 pb-2">{t.phase2.aimsTitle}</h3>
                   <ul className="space-y-5 text-sm text-[#51615a]">
                     <li className="flex items-start gap-3">
                       <span className="w-1.5 h-1.5 rounded-full bg-[#2BB7BA] mt-1.5 shrink-0"></span>
                       <div className="space-y-0.5">
-                        <span className="font-bold text-[#2E536B] block">1. Strengthen the evidence base</span>
-                        <span className="text-xs text-[#51615a]">Bring together insight from partners, young people, communities, employers and available data.</span>
+                        <span className="font-bold text-[#2E536B] block">{t.phase2.aim1Title}</span>
+                        <span className="text-xs text-[#51615a]">{t.phase2.aim1Desc}</span>
                       </div>
                     </li>
                     <li className="flex items-start gap-3">
                       <span className="w-1.5 h-1.5 rounded-full bg-[#FF9900] mt-1.5 shrink-0"></span>
                       <div className="space-y-0.5">
-                        <span className="font-bold text-[#2E536B] block">2. Shape practical pilot opportunities</span>
-                        <span className="text-xs text-[#51615a]">Identify where coordinated action could make the biggest difference.</span>
+                        <span className="font-bold text-[#2E536B] block">{t.phase2.aim2Title}</span>
+                        <span className="text-xs text-[#51615a]">{t.phase2.aim2Desc}</span>
                       </div>
                     </li>
                     <li className="flex items-start gap-3">
                       <span className="w-1.5 h-1.5 rounded-full bg-[#3AB03A] mt-1.5 shrink-0"></span>
                       <div className="space-y-0.5">
-                        <span className="font-bold text-[#2E536B] block">3. Build the case for investment</span>
-                        <span className="text-xs text-[#51615a]">Show where funding could strengthen existing pathways rather than duplicate them.</span>
+                        <span className="font-bold text-[#2E536B] block">{t.phase2.aim3Title}</span>
+                        <span className="text-xs text-[#51615a]">{t.phase2.aim3Desc}</span>
                       </div>
                     </li>
                   </ul>
@@ -724,36 +671,15 @@ export default function App() {
 
               <div className="space-y-8">
                 <div className="text-center space-y-3 max-w-2xl mx-auto">
-                  <span className="text-xs font-bold uppercase tracking-widest text-[#FF9900] block">Phase 2 Roadmap</span>
+                  <span className="text-xs font-bold uppercase tracking-widest text-[#FF9900] block">{t.phase2.roadmapTag}</span>
                   <p className="text-sm sm:text-base text-[#51615a] leading-relaxed">
-                    We are now in Sprint 1 of Phase 2. This phase is focused on strengthening the evidence base, testing priorities with partners and shaping pilot opportunities that could move into delivery.
+                    {t.phase2.roadmapLead}
                   </p>
                 </div>
 
                 {/* 4 brand-colored interactive cards */}
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 pt-4">
-                  {[
-                    {
-                      num: "Sprint 1",
-                      title: "Strengthen the evidence base",
-                      desc: "Bring together Phase 1 outputs, ecosystem mapping, youth insight, employer input and available place-based data to sharpen the picture of need, provision and opportunity."
-                    },
-                    {
-                      num: "Sprint 2",
-                      title: "Shape pilot concepts",
-                      desc: "Develop a small number of practical pilot concepts linked to the strongest opportunities, including the problem, target cohort, place, partners, outcomes and delivery conditions."
-                    },
-                    {
-                      num: "Sprint 3",
-                      title: "Test with partners",
-                      desc: "Sense-check each pilot concept with young people, schools, employers, community organisations, funders and public bodies."
-                    },
-                    {
-                      num: "Sprint 4",
-                      title: "Build the investment case",
-                      desc: "Prioritise what moves forward and define the funding, coordination, evidence and delivery support needed for the next stage."
-                    }
-                  ].map((s, idx) => {
+                  {t.phase2.sprints.map((s, idx) => {
                     const phaseColors = [
                       { text: "text-[#2BB7BA]", bg: "bg-[#2BB7BA]/10", border: "border-t-[#2BB7BA]", hoverBorder: "hover:border-[#2BB7BA]" },
                       { text: "text-[#FF9900]", bg: "bg-[#FF9900]/10", border: "border-t-[#FF9900]", hoverBorder: "hover:border-[#FF9900]" },
@@ -766,7 +692,7 @@ export default function App() {
                       <div key={idx} className={`bg-white border-t-[3px] ${color.border} border-x border-b border-[#969696]/20 ${color.hoverBorder} p-6 space-y-3 rounded-2xl transition-all duration-300 shadow-xs hover:shadow-md text-left flex flex-col justify-start h-full`}>
                         <span className={`text-xs font-mono font-bold tracking-wider block ${color.text}`}>{s.num}</span>
                         <h4 className="font-medium text-slate-800 text-sm uppercase tracking-wider leading-snug md:min-h-[3rem]">{s.title}</h4>
-                        <p className="text-sm text-[#51615a] leading-relaxed">
+                        <p className="text-sm text-[#51615a] leading-relaxed font-sans">
                           {s.desc}
                         </p>
                       </div>
@@ -777,14 +703,12 @@ export default function App() {
 
               {/* Outcome summary at the bottom */}
               <div className="bg-white border border-[#969696]/20 p-6 sm:p-8 rounded-2xl max-w-3xl mx-auto text-center space-y-2 shadow-xs">
-                <span className="text-[11px] font-mono font-bold uppercase tracking-widest text-[#FF9900]">Phase 2 Deliverables</span>
+                <span className="text-[11px] font-mono font-bold uppercase tracking-widest text-[#FF9900]">{t.phase2.deliverablesTag}</span>
                 <p className="text-sm sm:text-base text-[#51615a] leading-relaxed max-w-2xl mx-auto font-sans font-medium">
-                  By the end of Phase 2, partners will have a stronger shared evidence base, 2–3 prioritised pilot opportunities and a clearer investment case for the next stage of place-based delivery.
+                  {t.phase2.deliverablesText}
                 </p>
               </div>
- 
 
- 
             </div>
           </section>
         </div>
@@ -796,65 +720,40 @@ export default function App() {
               
               {/* Left Column: Cased Title & Stakeholder Bullet Points */}
               <div className="lg:col-span-7 space-y-4">
-                <span className="text-xs font-bold uppercase tracking-widest text-[#FF9900] block">Systemic Lens</span>
+                <span className="text-xs font-bold uppercase tracking-widest text-[#FF9900] block">{t.system.tag}</span>
                 <h2 className="text-3xl font-normal text-[#2E536B] tracking-tight leading-tight">
-                  Why this matters beyond any one organisation
+                  {t.system.title}
                 </h2>
                 
                 <p className="text-sm sm:text-base text-[#51615a] leading-relaxed">
-                  No single organisation can fix the pathway alone. The value of this work is in seeing the whole system: what already exists, where the gaps and duplications are, and where shared action could make the biggest difference for young people, communities and employers.
+                  {t.system.p1}
                 </p>
                 
                 <p className="text-sm sm:text-base text-[#51615a] leading-relaxed">
-                  For employers, this means clearer routes to future talent. For charities and community organisations, it means lived insight shaping decisions. For public bodies and funders, it means better evidence about where shared action can create the greatest impact.
+                  {t.system.p2}
                 </p>
 
                 <p className="text-sm sm:text-base text-[#51615a] leading-relaxed">
-                  The next stage is about making that shared picture clearer, so partners can make better decisions about where to focus time, funding and delivery.
+                  {t.system.p3}
                 </p>
                 
                 <div className="space-y-3 pt-4 border-t border-[#969696]/20">
                   <h3 className="text-sm uppercase tracking-wider font-bold text-[#51615a] border-b border-[#969696]/20 pb-2">
-                    What Stakeholders Can Expect in Return
+                    {t.system.returnsTitle}
                   </h3>
                   
                   <ul className="grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-3">
-                    <li className="flex items-start gap-3">
-                      <span className="w-1.5 h-1.5 rounded-full bg-[#FF9900] mt-2 shrink-0"></span>
-                      <p className="text-sm text-[#51615a] leading-relaxed">
-                        Earlier sight of where the work is heading and which ideas are gaining traction.
-                      </p>
-                    </li>
-                    <li className="flex items-start gap-3">
-                      <span className="w-1.5 h-1.5 rounded-full bg-[#2BB7BA] mt-2 shrink-0"></span>
-                      <p className="text-sm text-[#51615a] leading-relaxed">
-                        A chance to influence what becomes pilot-ready, before decisions are set elsewhere.
-                      </p>
-                    </li>
-                    <li className="flex items-start gap-3">
-                      <span className="w-1.5 h-1.5 rounded-full bg-[#3AB03A] mt-2 shrink-0"></span>
-                      <p className="text-sm text-[#51615a] leading-relaxed">
-                        Better visibility of adjacent partners, programmes and gaps across the Welsh ecosystem.
-                      </p>
-                    </li>
-                    <li className="flex items-start gap-3">
-                      <span className="w-1.5 h-1.5 rounded-full bg-[#986430] mt-2 shrink-0"></span>
-                      <p className="text-sm text-[#51615a] leading-relaxed">
-                        Stronger relationships across employers, educators, youth organisations, civic partners and funders.
-                      </p>
-                    </li>
-                    <li className="flex items-start gap-3">
-                      <span className="w-1.5 h-1.5 rounded-full bg-[#2E536B] mt-2 shrink-0"></span>
-                      <p className="text-sm text-[#51615a] leading-relaxed">
-                        A clearer shared narrative to support future commissioning, funding or policy conversations.
-                      </p>
-                    </li>
-                    <li className="flex items-start gap-3">
-                      <span className="w-1.5 h-1.5 rounded-full bg-[#2BB7BA] mt-2 shrink-0"></span>
-                      <p className="text-sm text-[#51615a] leading-relaxed">
-                        A clearer role in shaping practical solutions before they are funded, commissioned or scaled.
-                      </p>
-                    </li>
+                    {t.system.returnsList.map((ret, idx) => {
+                      const dotColors = ["bg-[#FF9900]", "bg-[#2BB7BA]", "bg-[#3AB03A]", "bg-[#986430]", "bg-[#2E536B]", "bg-[#2BB7BA]"];
+                      return (
+                        <li key={idx} className="flex items-start gap-3">
+                          <span className={`w-1.5 h-1.5 rounded-full ${dotColors[idx % dotColors.length]} mt-2 shrink-0`}></span>
+                          <p className="text-sm text-[#51615a] leading-relaxed font-sans">
+                            {ret}
+                          </p>
+                        </li>
+                      );
+                    })}
                   </ul>
                 </div>
               </div>
@@ -864,69 +763,45 @@ export default function App() {
                 <div className="w-full bg-[#faf9f6]/40 border border-[#969696]/20 p-5 sm:p-6 rounded-3xl shadow-xs">
                   <div className="space-y-6">
                     <div className="border-b border-[#969696]/15 pb-4 mb-2 text-left">
-                      <span className="text-[10px] font-mono font-bold uppercase tracking-widest text-[#FF9900]">Core Action Cycle</span>
-                      <h3 className="text-lg font-semibold text-[#2E536B] tracking-tight">Four pillars of place-based alignment</h3>
+                      <span className="text-[10px] font-mono font-bold uppercase tracking-widest text-[#FF9900]">{t.system.actionCycleTag}</span>
+                      <h3 className="text-lg font-semibold text-[#2E536B] tracking-tight">{t.system.actionCycleTitle}</h3>
                     </div>
 
                     <div className="relative pl-6 md:pl-8 space-y-6 before:absolute before:left-[11px] md:before:left-[15px] before:top-4 before:bottom-4 before:w-0.5 before:bg-gradient-to-b before:from-[#2BB7BA] before:via-[#FF9900] before:to-[#969696] before:opacity-30">
-                      {[
-                        {
-                          num: "01",
-                          title: "Identify Gaps and Duplication",
-                          desc: "Make existing provision easier to see, understand and connect — so partners can build on what works rather than repeat it.",
-                          color: "#2BB7BA",
-                          bg: "bg-[#e6faf9]/30",
-                          dotBg: "bg-[#2BB7BA]"
-                        },
-                        {
-                          num: "02",
-                          title: "Strengthen Pathways",
-                          desc: "Improve how young people move between systems, especially from school to post-16, post-16 to work, and into second-chance routes.",
-                          color: "#FF9900",
-                          bg: "bg-[#feedd5]/30",
-                          dotBg: "bg-[#FF9900]"
-                        },
-                        {
-                          num: "03",
-                          title: "Ground Action in Evidence and Lived Experience",
-                          desc: "Test ideas with young people, practitioners and employers before scaling, so solutions reflect lived experience and local conditions.",
-                          color: "#3AB03A",
-                          bg: "bg-[#d2f0d5]/20",
-                          dotBg: "bg-[#3AB03A]"
-                        },
-                        {
-                          num: "04",
-                          title: "Build a Stronger Collective Case",
-                          desc: "Create credible evidence for government, funders and place-based investors about where shared action will have the greatest impact.",
-                          color: "#969696",
-                          bg: "bg-[#e8e8e8]/30",
-                          dotBg: "bg-[#969696]"
-                        }
-                      ].map((item, idx) => (
-                        <div key={idx} className="relative group transition-all duration-300">
-                          {/* Visual Connector Node */}
-                          <div className="absolute -left-[22px] md:-left-[27px] top-1 flex items-center justify-center">
-                            <div className={`w-5 h-5 md:w-6 md:h-6 rounded-full ${item.dotBg} text-white flex items-center justify-center font-mono text-[9px] md:text-[10px] font-bold shadow-sm group-hover:scale-110 transition-transform duration-300`}>
-                              {item.num}
+                      {t.system.pillars.map((item, idx) => {
+                        const pillarColors = [
+                          { color: "#2BB7BA", dotBg: "bg-[#2BB7BA]" },
+                          { color: "#FF9900", dotBg: "bg-[#FF9900]" },
+                          { color: "#3AB03A", dotBg: "bg-[#3AB03A]" },
+                          { color: "#969696", dotBg: "bg-[#969696]" }
+                        ];
+                        const col = pillarColors[idx % pillarColors.length];
+                        return (
+                          <div key={idx} className="relative group transition-all duration-300">
+                            {/* Visual Connector Node */}
+                            <div className="absolute -left-[22px] md:-left-[27px] top-1 flex items-center justify-center">
+                              <div className={`w-5 h-5 md:w-6 md:h-6 rounded-full ${col.dotBg} text-white flex items-center justify-center font-mono text-[9px] md:text-[10px] font-bold shadow-sm group-hover:scale-110 transition-transform duration-300`}>
+                                {item.num}
+                              </div>
                             </div>
-                          </div>
 
-                          {/* Card */}
-                          <div className="p-4 sm:p-5 rounded-2xl bg-white border border-[#969696]/15 hover:border-slate-300 shadow-xs hover:shadow-md transition-all duration-300 text-left">
-                            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-1 pb-1 border-b border-slate-100 mb-2">
-                              <h4 className="font-bold text-xs sm:text-sm uppercase tracking-wider" style={{ color: item.color }}>
-                                {item.title}
-                              </h4>
-                              <span className="text-[9px] font-mono text-slate-400 font-semibold uppercase tracking-widest">
-                                Pillar {item.num}
-                              </span>
+                            {/* Card */}
+                            <div className="p-4 sm:p-5 rounded-2xl bg-white border border-[#969696]/15 hover:border-slate-300 shadow-xs hover:shadow-md transition-all duration-300 text-left">
+                              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-1 pb-1 border-b border-slate-100 mb-2">
+                                <h4 className="font-bold text-xs sm:text-sm uppercase tracking-wider" style={{ color: col.color }}>
+                                  {item.title}
+                                </h4>
+                                <span className="text-[9px] font-mono text-slate-400 font-semibold uppercase tracking-widest">
+                                  {lang === "cy" ? "Colofn" : "Pillar"} {item.num}
+                                </span>
+                              </div>
+                              <p className="text-xs sm:text-sm text-[#51615a] leading-relaxed font-sans">
+                                {item.desc}
+                              </p>
                             </div>
-                            <p className="text-xs sm:text-sm text-[#51615a] leading-relaxed">
-                              {item.desc}
-                            </p>
                           </div>
-                        </div>
-                      ))}
+                        );
+                      })}
                     </div>
                   </div>
                 </div>
@@ -945,25 +820,21 @@ export default function App() {
                 
                 {/* Visual of Wales map: small, on the left */}
                 <div className="lg:col-span-5 w-full max-w-sm lg:max-w-md mx-auto flex flex-col items-stretch space-y-4">
-                  <span className="text-xs font-bold uppercase tracking-widest text-[#FF9900] block lg:hidden">Ecosystem Map</span>
+                  <span className="text-xs font-bold uppercase tracking-widest text-[#FF9900] block lg:hidden">{t.ecosystem.tag}</span>
                   <WalesEcosystemMap />
                 </div>
                 
                 {/* Text and CTA: on the right */}
                 <div className="lg:col-span-7 space-y-4 text-left flex flex-col justify-center h-full pt-2 lg:pt-4">
-                  <span className="text-xs font-bold uppercase tracking-widest text-[#FF9900] hidden lg:block">Ecosystem Mapping</span>
+                  <span className="text-xs font-bold uppercase tracking-widest text-[#FF9900] hidden lg:block">{t.ecosystem.tag}</span>
                   
                   <h2 className="text-3xl font-normal text-[#2E536B] tracking-tight leading-tight">
-                    The Wales Social Mobility Ecosystem Map
+                    {t.ecosystem.title}
                   </h2>
                   
                   <div className="text-sm sm:text-base text-[#51615a] leading-relaxed space-y-4 font-sans">
-                    <p>
-                      We are building a shared view of the Welsh social mobility ecosystem: who is working with young people, where they operate, which stage of the journey they support, and where there may be gaps, duplication or weak handoffs.
-                    </p>
-                    <p>
-                      The map is not intended to judge individual organisations. It is designed to help partners see the system more clearly, so they can align effort, strengthen pathways and identify where collective action is needed most.
-                    </p>
+                    <p>{t.ecosystem.p1}</p>
+                    <p>{t.ecosystem.p2}</p>
                   </div>
  
                   <div className="pt-2">
@@ -972,14 +843,14 @@ export default function App() {
                         setMapFormName("");
                         setMapFormContact("");
                         setMapFormMessage("");
-                        setMapContributionType("Add my organisation");
+                        setMapContributionType(lang === "cy" ? "Ychwanegu fy sefydliad" : "Add my organisation");
                         setIsMapFormOpen(true);
                         setIsMapSubmitted(false);
                       }}
                       className="inline-flex items-center gap-2.5 px-6 py-3.5 bg-[#2E536B] hover:bg-[#2E536B]/95 text-white text-xs font-semibold uppercase tracking-widest transition-all rounded shadow-xs cursor-pointer"
                     >
                       <MapPin className="w-4 h-4 text-[#FF9900]" />
-                      <span>Contribute to the Ecosystem Map</span>
+                      <span>{t.ecosystem.contributeBtn}</span>
                     </button>
                   </div>
                 </div>
@@ -988,9 +859,9 @@ export default function App() {
 
               {/* Bottom text: living map */}
               <div className="bg-white border border-[#969696]/20 p-6 sm:p-8 rounded-2xl max-w-3xl mx-auto text-center space-y-2 shadow-xs font-sans">
-                <span className="text-[10px] font-mono font-bold uppercase tracking-widest text-[#FF9900]">Ecosystem Status</span>
+                <span className="text-[10px] font-mono font-bold uppercase tracking-widest text-[#FF9900]">{t.ecosystem.statusTag}</span>
                 <p className="text-sm sm:text-base text-[#51615a] leading-relaxed max-w-2xl mx-auto font-sans font-medium">
-                  This is a living map and will continue to evolve as more partners contribute insight.
+                  {t.ecosystem.statusText}
                 </p>
               </div>
 
@@ -1004,23 +875,23 @@ export default function App() {
             <div className="max-w-6xl mx-auto">
               <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start text-left font-sans">
                 <div className="lg:col-span-5 space-y-4">
-                  <span className="text-xs font-bold uppercase tracking-widest text-[#FF9900] block">Next Stage Ambition</span>
+                  <span className="text-xs font-bold uppercase tracking-widest text-[#FF9900] block">{t.nextStage.tag}</span>
                   <h2 className="text-3xl font-normal text-[#2E536B] tracking-tight leading-tight">
-                    Building the infrastructure for coordinated place-based action
+                    {t.nextStage.title}
                   </h2>
                   <p className="text-sm sm:text-base text-[#51615a] font-semibold leading-relaxed pt-2">
-                    We have built the insight and early evidence. The next step is to build the capacity and infrastructure to move this into coordinated delivery.
+                    {t.nextStage.lead}
                   </p>
                 </div>
                 <div className="lg:col-span-7 space-y-6 pt-2 lg:pt-8">
                   <p className="text-sm sm:text-base text-[#51615a] leading-relaxed">
-                    The next stage of the work is about turning insight into practical coordination.
+                    {t.nextStage.p1}
                   </p>
                   <p className="text-sm sm:text-base text-[#51615a] leading-relaxed">
-                    With the right investment, OAHA wants to develop the shared infrastructure needed to help partners see the system more clearly, coordinate activity more effectively and understand what is changing for young people over time.
+                    {t.nextStage.p2}
                   </p>
                   <p className="text-sm sm:text-base text-[#51615a] leading-relaxed">
-                    This will be developed carefully with partners, building on the evidence, relationships and priorities already surfaced through Phase 1 and Phase 2.
+                    {t.nextStage.p3}
                   </p>
                 </div>
               </div>
@@ -1034,69 +905,41 @@ export default function App() {
             <div className="max-w-6xl mx-auto space-y-8">
               
               <div className="space-y-2 text-left max-w-3xl">
-                <span className="text-xs font-bold uppercase tracking-widest text-[#FF9900] block">Collaboration Needs</span>
+                <span className="text-xs font-bold uppercase tracking-widest text-[#FF9900] block">{t.needs.tag}</span>
                 <h2 className="text-3xl font-normal text-[#2E536B] tracking-tight">
-                  What we need now
+                  {t.needs.title}
                 </h2>
                 <p className="text-sm sm:text-base text-[#51615a] leading-relaxed">
-                  We are now looking for partners who can help move the work into its next phase.
+                  {t.needs.lead}
                 </p>
               </div>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-                
-                {/* Card 1 */}
-                <div className="group bg-white border border-[#969696]/20 hover:border-[#2BB7BA]/60 p-6 rounded-lg transition-all duration-300 hover:shadow-sm">
-                  <div className="w-10 h-10 rounded-lg bg-[#2BB7BA]/10 flex items-center justify-center text-[#2BB7BA] mb-4 group-hover:bg-[#2BB7BA] group-hover:text-white transition-all duration-300">
-                    <Lightbulb className="w-5 h-5" />
-                  </div>
-                  <h3 className="text-sm font-bold tracking-wider text-slate-800 uppercase mb-2 group-hover:text-[#2BB7BA] transition-colors">
-                    Insight
-                  </h3>
-                  <p className="text-sm text-[#51615a] leading-relaxed font-sans">
-                    Share what you are seeing in communities, schools, workplaces or local systems.
-                  </p>
-                </div>
+                {t.needs.cards.map((card, idx) => {
+                  const cardIcons = [Lightbulb, Network, CalendarDays, PoundSterling];
+                  const cardStyles = [
+                    { border: "hover:border-[#2BB7BA]/60", bg: "bg-[#2BB7BA]/10", text: "text-[#2BB7BA]", hoverBg: "group-hover:bg-[#2BB7BA]", hoverText: "group-hover:text-[#2BB7BA]" },
+                    { border: "hover:border-[#FF9900]/60", bg: "bg-[#FF9900]/10", text: "text-[#FF9900]", hoverBg: "group-hover:bg-[#FF9900]", hoverText: "group-hover:text-[#FF9900]" },
+                    { border: "hover:border-[#3AB03A]/60", bg: "bg-[#3AB03A]/10", text: "text-[#3AB03A]", hoverBg: "group-hover:bg-[#3AB03A]", hoverText: "group-hover:text-[#3AB03A]" },
+                    { border: "hover:border-[#2E536B]/60", bg: "bg-[#2E536B]/10", text: "text-[#2E536B]", hoverBg: "group-hover:bg-[#2E536B]", hoverText: "group-hover:text-[#2E536B]" }
+                  ];
+                  const IconComp = cardIcons[idx % cardIcons.length];
+                  const st = cardStyles[idx % cardStyles.length];
 
-                {/* Card 2 */}
-                <div className="group bg-white border border-[#969696]/20 hover:border-[#FF9900]/60 p-6 rounded-lg transition-all duration-300 hover:shadow-sm">
-                  <div className="w-10 h-10 rounded-lg bg-[#FF9900]/10 flex items-center justify-center text-[#FF9900] mb-4 group-hover:bg-[#FF9900] group-hover:text-white transition-all duration-300">
-                    <Network className="w-5 h-5" />
-                  </div>
-                  <h3 className="text-sm font-bold tracking-wider text-slate-800 uppercase mb-2 group-hover:text-[#FF9900] transition-colors">
-                    Access
-                  </h3>
-                  <p className="text-sm text-[#51615a] leading-relaxed font-sans">
-                    Connect us to young people, families, schools, colleges, employers or community groups.
-                  </p>
-                </div>
-
-                {/* Card 3 */}
-                <div className="group bg-white border border-[#969696]/20 hover:border-[#3AB03A]/60 p-6 rounded-lg transition-all duration-300 hover:shadow-sm">
-                  <div className="w-10 h-10 rounded-lg bg-[#3AB03A]/10 flex items-center justify-center text-[#3AB03A] mb-4 group-hover:bg-[#3AB03A] group-hover:text-white transition-all duration-300">
-                    <CalendarDays className="w-5 h-5" />
-                  </div>
-                  <h3 className="text-sm font-bold tracking-wider text-slate-800 uppercase mb-1.5 group-hover:text-[#3AB03A] transition-colors">
-                    Capacity
-                  </h3>
-                  <p className="text-sm text-[#51615a] leading-relaxed font-sans">
-                    Join a workshop, host a conversation, test pilot ideas or support delivery.
-                  </p>
-                </div>
-
-                {/* Card 4 */}
-                <div className="group bg-white border border-[#969696]/20 hover:border-[#2E536B]/60 p-6 rounded-lg transition-all duration-300 hover:shadow-sm">
-                  <div className="w-10 h-10 rounded-lg bg-[#2E536B]/10 flex items-center justify-center text-[#2E536B] mb-4 group-hover:bg-[#2E536B] group-hover:text-white transition-all duration-300">
-                    <PoundSterling className="w-5 h-5" />
-                  </div>
-                  <h3 className="text-sm font-bold tracking-wider text-slate-800 uppercase mb-2 group-hover:text-[#2E536B] transition-colors">
-                    Investment
-                  </h3>
-                  <p className="text-sm text-[#51615a] leading-relaxed font-sans">
-                    Help fund the coordination, evidence, youth voice, design and pilot development needed to move from insight to action.
-                  </p>
-                </div>
-
+                  return (
+                    <div key={idx} className={`group bg-white border border-[#969696]/20 ${st.border} p-6 rounded-lg transition-all duration-300 hover:shadow-sm`}>
+                      <div className={`w-10 h-10 rounded-lg ${st.bg} flex items-center justify-center ${st.text} mb-4 ${st.hoverBg} group-hover:text-white transition-all duration-300`}>
+                        <IconComp className="w-5 h-5" />
+                      </div>
+                      <h3 className={`text-sm font-bold tracking-wider text-slate-800 uppercase mb-2 ${st.hoverText} transition-colors`}>
+                        {card.title}
+                      </h3>
+                      <p className="text-sm text-[#51615a] leading-relaxed font-sans">
+                        {card.desc}
+                      </p>
+                    </div>
+                  );
+                })}
               </div>
 
             </div>
@@ -1108,16 +951,16 @@ export default function App() {
           <section className="py-12 sm:py-16 px-6 sm:px-12 bg-white border-b border-[#969696]/30">
             <div className="max-w-4xl mx-auto text-left space-y-6">
               <div className="space-y-2">
-                <span className="text-xs font-bold uppercase tracking-widest text-[#FF9900] block">Convening & Coordination</span>
+                <span className="text-xs font-bold uppercase tracking-widest text-[#FF9900] block">{t.coordination.tag}</span>
                 <h2 className="text-3xl font-normal text-[#2E536B] tracking-tight">
-                  Who is coordinating this work?
+                  {t.coordination.title}
                 </h2>
               </div>
               <p className="text-sm sm:text-base text-[#51615a] leading-relaxed font-sans">
-                OAHA and Lewis Silkin are helping to convene and coordinate this collaboration, working with partners across Wales to move from insight to practical action. The role is not to create another standalone programme, but to provide light-touch backbone support: connecting people, synthesising insight, identifying gaps and helping partners shape pilot-ready solutions. The intention is not to create another standalone programme, but to help partners build on what already exists and move toward more coordinated action.
+                {t.coordination.p1}
               </p>
               <p className="text-sm sm:text-base text-[#51615a] leading-relaxed font-sans">
-                The work is intentionally collaborative. It will evolve as more employers, community organisations, charities, educators, funders and public bodies contribute insight and capacity.
+                {t.coordination.p2}
               </p>
             </div>
           </section>
@@ -1129,8 +972,8 @@ export default function App() {
             <div className="max-w-2xl mx-auto space-y-6">
               
               <div className="text-center space-y-1">
-                <span className="text-xs font-bold uppercase tracking-widest text-[#FF9900] block">Immediate Collaboration</span>
-                <h2 className="text-3xl font-normal text-[#2E536B] tracking-tight">How to get involved</h2>
+                <span className="text-xs font-bold uppercase tracking-widest text-[#FF9900] block">{t.getInvolved.tag}</span>
+                <h2 className="text-3xl font-normal text-[#2E536B] tracking-tight">{t.getInvolved.title}</h2>
               </div>
 
               {isSubmitted ? (
@@ -1138,34 +981,34 @@ export default function App() {
                   <div className="w-12 h-12 rounded-full bg-[#2E536B]/10 text-[#2E536B] flex items-center justify-center mx-auto">
                     <Check className="w-6 h-6" />
                   </div>
-                  <h3 className="text-sm font-bold text-[#2E536B] uppercase tracking-wider">Inquiry Sent Successfully!</h3>
+                  <h3 className="text-sm font-bold text-[#2E536B] uppercase tracking-wider">{t.getInvolved.success.title}</h3>
                   <p className="text-xs text-[#51615a] leading-relaxed">
-                    Thank you, <strong>{contactFormName || "Partner"}</strong> of <strong>{contactOrganisation || "your organisation"}</strong>. Your collaboration details have been sent directly to <strong>info.oaha.uk@gmail.com</strong>.
+                    {t.getInvolved.success.desc(contactFormName, contactOrganisation)}
                   </p>
 
                   {isFormMockMode && (
                     <div className="mt-2 p-3.5 bg-[#FF9900]/10 border border-[#FF9900]/30 rounded-xl text-left space-y-2">
                       <p className="text-xs text-[#986430] font-sans font-medium">
-                        💡 <strong>Developer Note:</strong> The form submitted successfully in simulation mode because <strong>RESEND_API_KEY</strong> is not yet configured. To make real emails fly, add your Resend API key to the Secrets/Settings panel.
+                        💡 <strong>{t.getInvolved.success.mockNote}</strong>
                       </p>
                     </div>
                   )}
 
                   <p className="text-xs text-[#51615a] leading-relaxed">
-                    If you require an instant backup copy or would like to send manually, you may use the button below.
+                    {t.getInvolved.success.instantBackupPrompt}
                   </p>
                   <div className="flex flex-col sm:flex-row gap-3 justify-center pt-2">
                     <button
                       onClick={() => {
                         const tabName = activeInvolvedTab === "employers" 
-                          ? "Employers" 
+                          ? t.getInvolved.tabs.employers 
                           : activeInvolvedTab === "partners" 
-                            ? "Community & Charity Partners" 
+                            ? t.getInvolved.tabs.partners 
                             : activeInvolvedTab === "education"
-                              ? "Schools, Colleges & Universities"
+                              ? t.getInvolved.tabs.education
                               : activeInvolvedTab === "government"
-                                ? "Government & Public Bodies"
-                                : "Funders & Strategic Partners";
+                                ? t.getInvolved.tabs.government
+                                : t.getInvolved.tabs.funders;
 
                         const subject = encodeURIComponent(`OAHA Wales Collaboration Inquiry (${tabName})`);
                         const body = encodeURIComponent(
@@ -1187,13 +1030,13 @@ export default function App() {
                       }}
                       className="px-5 py-3 bg-[#2E536B] text-white text-[10px] uppercase font-bold tracking-wider hover:opacity-90 transition-all cursor-pointer rounded-lg shadow-xs"
                     >
-                      Open Email Client (Backup)
+                      {t.getInvolved.success.emailBackupBtn}
                     </button>
                     <button
                       onClick={handleResetForm}
                       className="px-5 py-3 border border-[#2E536B] text-[#2E536B] text-[10px] uppercase font-bold tracking-wider hover:bg-[#faf9f6] transition-all cursor-pointer rounded-lg"
                     >
-                      Submit Another Response
+                      {t.getInvolved.success.submitAnotherBtn}
                     </button>
                   </div>
                 </div>
@@ -1202,11 +1045,11 @@ export default function App() {
                   {/* Tabs Selector Bar */}
                   <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-2 border-b border-[#969696]/20 pb-px">
                     {[
-                      { id: "employers", label: "Employers", activeColor: "border-[#2BB7BA] text-[#2BB7BA]", activeBg: "bg-[#2BB7BA]/10", hoverBg: "hover:bg-[#2BB7BA]/5", hoverColor: "hover:text-[#2BB7BA] hover:border-[#2BB7BA]/20" },
-                      { id: "partners", label: "Community & Charity Partners", activeColor: "border-[#FF9900] text-[#FF9900]", activeBg: "bg-[#FF9900]/10", hoverBg: "hover:bg-[#FF9900]/5", hoverColor: "hover:text-[#FF9900] hover:border-[#FF9900]/20" },
-                      { id: "education", label: "Schools, Colleges & Universities", activeColor: "border-[#3AB03A] text-[#3AB03A]", activeBg: "bg-[#3AB03A]/10", hoverBg: "hover:bg-[#3AB03A]/5", hoverColor: "hover:text-[#3AB03A] hover:border-[#3AB03A]/20" },
-                      { id: "government", label: "Government & Public Bodies", activeColor: "border-[#986430] text-[#986430]", activeBg: "bg-[#986430]/10", hoverBg: "hover:bg-[#986430]/5", hoverColor: "hover:text-[#986430] hover:border-[#986430]/20" },
-                      { id: "funders", label: "Funders & Strategic Partners", activeColor: "border-[#2E536B] text-[#2E536B]", activeBg: "bg-[#2E536B]/10", hoverBg: "hover:bg-[#2E536B]/5", hoverColor: "hover:text-[#2E536B] hover:border-[#2E536B]/20" }
+                      { id: "employers", label: t.getInvolved.tabs.employers, activeColor: "border-[#2BB7BA] text-[#2BB7BA]", activeBg: "bg-[#2BB7BA]/10", hoverBg: "hover:bg-[#2BB7BA]/5", hoverColor: "hover:text-[#2BB7BA] hover:border-[#2BB7BA]/20" },
+                      { id: "partners", label: t.getInvolved.tabs.partners, activeColor: "border-[#FF9900] text-[#FF9900]", activeBg: "bg-[#FF9900]/10", hoverBg: "hover:bg-[#FF9900]/5", hoverColor: "hover:text-[#FF9900] hover:border-[#FF9900]/20" },
+                      { id: "education", label: t.getInvolved.tabs.education, activeColor: "border-[#3AB03A] text-[#3AB03A]", activeBg: "bg-[#3AB03A]/10", hoverBg: "hover:bg-[#3AB03A]/5", hoverColor: "hover:text-[#3AB03A] hover:border-[#3AB03A]/20" },
+                      { id: "government", label: t.getInvolved.tabs.government, activeColor: "border-[#986430] text-[#986430]", activeBg: "bg-[#986430]/10", hoverBg: "hover:bg-[#986430]/5", hoverColor: "hover:text-[#986430] hover:border-[#986430]/20" },
+                      { id: "funders", label: t.getInvolved.tabs.funders, activeColor: "border-[#2E536B] text-[#2E536B]", activeBg: "bg-[#2E536B]/10", hoverBg: "hover:bg-[#2E536B]/5", hoverColor: "hover:text-[#2E536B] hover:border-[#2E536B]/20" }
                     ].map((tab) => {
                       const isActive = activeInvolvedTab === tab.id;
                       return (
@@ -1215,19 +1058,9 @@ export default function App() {
                           type="button"
                           onClick={() => {
                             setActiveInvolvedTab(tab.id as any);
-                            // Set first option as default when tab switches
-                            const firstOption = tab.id === "employers" 
-                              ? "Share future skills needs"
-                              : tab.id === "partners"
-                                ? "Share community insight"
-                                : tab.id === "education"
-                                  ? "Connect us to young people or schools"
-                                  : tab.id === "government"
-                                    ? "Share relevant data or research"
-                                    : "Fund the next phase";
+                            const firstOption = t.getInvolved.options[tab.id as keyof typeof t.getInvolved.options] as string;
                             setSelectedOption(firstOption);
 
-                            // Set organic organisation type to match tab choice
                             const guessedType = tab.id === "employers"
                               ? "Employer"
                               : tab.id === "partners"
@@ -1254,18 +1087,10 @@ export default function App() {
                   {/* Tab Subtitle & Details */}
                   <div className="bg-[#faf9f6]/40 p-6 sm:p-8 rounded-2xl border border-[#969696]/15 space-y-4 text-left">
                     <h3 className="text-base font-semibold text-[#2E536B] tracking-tight">
-                      {activeInvolvedTab === "employers" && "Help connect future workforce demand to visible opportunity."}
-                      {activeInvolvedTab === "partners" && "Help ensure solutions are grounded in lived experience and community trust."}
-                      {activeInvolvedTab === "education" && "Help connect young people’s experience with future pathways."}
-                      {activeInvolvedTab === "government" && "Help align policy, commissioning, social value and place-based action."}
-                      {activeInvolvedTab === "funders" && "Help move the work from insight to practical pilots."}
+                      {t.getInvolved.tabContent[activeInvolvedTab].title}
                     </h3>
                     <p className="text-sm text-[#51615a] leading-relaxed font-sans">
-                      {activeInvolvedTab === "employers" && "This could include sharing future skills needs, hosting design workshops, offering workplace exposure, supporting mentoring, or helping shape a pilot linked to real jobs and growth sectors."}
-                      {activeInvolvedTab === "partners" && "Community groups and charities can share what they are seeing locally, identify where young people and families face barriers, help test emerging ideas, and connect the work to the people and places it is designed to support."}
-                      {activeInvolvedTab === "education" && "Schools, colleges and universities can support youth insight, host design-led workshops, connect learners to employers and community partners, and help test how future jobs and local growth sectors are translated into learner awareness."}
-                      {activeInvolvedTab === "government" && "Government and public bodies can contribute insight, connect policy and delivery priorities, share evidence, align with youth employment and skills strategies, and help identify where practical pilots could support wider regional outcomes."}
-                      {activeInvolvedTab === "funders" && "Help fund the next stage of the work: strengthening the evidence base, supporting youth voice, shaping pilot opportunities and building the coordination needed to move from insight to delivery."}
+                      {t.getInvolved.tabContent[activeInvolvedTab].desc}
                     </p>
                   </div>
 
@@ -1275,7 +1100,7 @@ export default function App() {
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                       {/* Full Name */}
                       <div className="space-y-1.5">
-                        <label className="block text-[10px] uppercase font-sans tracking-wider text-[#2E536B] font-bold select-none">Full Name</label>
+                        <label className="block text-[10px] uppercase font-sans tracking-wider text-[#2E536B] font-bold select-none">{t.getInvolved.form.fullName}</label>
                         <input
                           type="text"
                           required
@@ -1288,7 +1113,7 @@ export default function App() {
 
                       {/* Organisation */}
                       <div className="space-y-1.5">
-                        <label className="block text-[10px] uppercase font-sans tracking-wider text-[#2E536B] font-bold select-none">Organisation</label>
+                        <label className="block text-[10px] uppercase font-sans tracking-wider text-[#2E536B] font-bold select-none">{t.getInvolved.form.organisation}</label>
                         <input
                           type="text"
                           required
@@ -1301,7 +1126,7 @@ export default function App() {
 
                       {/* Role / job title */}
                       <div className="space-y-1.5">
-                        <label className="block text-[10px] uppercase font-sans tracking-wider text-[#2E536B] font-bold select-none">Role / Job Title</label>
+                        <label className="block text-[10px] uppercase font-sans tracking-wider text-[#2E536B] font-bold select-none">{t.getInvolved.form.role}</label>
                         <input
                           type="text"
                           required
@@ -1314,24 +1139,21 @@ export default function App() {
 
                       {/* Organisation type */}
                       <div className="space-y-1.5">
-                        <label className="block text-[10px] uppercase font-sans tracking-wider text-[#2E536B] font-bold select-none">Organisation Type</label>
+                        <label className="block text-[10px] uppercase font-sans tracking-wider text-[#2E536B] font-bold select-none">{t.getInvolved.form.orgType}</label>
                         <select
                           value={contactOrgType}
                           onChange={(e) => setContactOrgType(e.target.value)}
                           className="w-full bg-white border border-[#969696]/30 p-3 text-sm focus:outline-none focus:border-[#2E536B] rounded-lg cursor-pointer text-[#1a2521]"
                         >
-                          <option value="Employer">Employer</option>
-                          <option value="Community & Charity Partner">Community & Charity Partner</option>
-                          <option value="School, College or University">School, College or University</option>
-                          <option value="Government & Public Body">Government & Public Body</option>
-                          <option value="Funder & Strategic Partner">Funder & Strategic Partner</option>
-                          <option value="Other">Other</option>
+                          {t.getInvolved.orgTypes.map((ot) => (
+                            <option key={ot.value} value={ot.value}>{ot.label}</option>
+                          ))}
                         </select>
                       </div>
 
                       {/* Email Address */}
                       <div className="space-y-1.5">
-                        <label className="block text-[10px] uppercase font-sans tracking-wider text-[#2E536B] font-bold select-none">Email Address</label>
+                        <label className="block text-[10px] uppercase font-sans tracking-wider text-[#2E536B] font-bold select-none">{t.getInvolved.form.email}</label>
                         <input
                           type="email"
                           required
@@ -1344,7 +1166,7 @@ export default function App() {
 
                       {/* Phone Number */}
                       <div className="space-y-1.5">
-                        <label className="block text-[10px] uppercase font-sans tracking-wider text-[#2E536B] font-bold select-none">Phone Number</label>
+                        <label className="block text-[10px] uppercase font-sans tracking-wider text-[#2E536B] font-bold select-none">{t.getInvolved.form.phone}</label>
                         <input
                           type="tel"
                           required
@@ -1358,31 +1180,23 @@ export default function App() {
                       {/* How would you like to get involved? */}
                       <div className="col-span-full space-y-1.5">
                         <label className="block text-[10px] uppercase font-sans tracking-wider text-[#2E536B] font-bold select-none">
-                          How would you like to get involved?
+                          {t.getInvolved.form.involvementOption}
                         </label>
                         <select
                           value={selectedOption}
                           onChange={(e) => setSelectedOption(e.target.value)}
                           className="w-full bg-white border border-[#969696]/30 p-3 text-sm focus:outline-none focus:border-[#2E536B] rounded-lg cursor-pointer text-[#1a2521]"
                         >
-                          <option value="Share future skills needs">Share future skills needs</option>
-                          <option value="Contribute to the ecosystem map">Contribute to the ecosystem map</option>
-                          <option value="Connect us to young people or schools">Connect us to young people or schools</option>
-                          <option value="Share community insight">Share community insight</option>
-                          <option value="Offer employer encounters">Offer employer encounters</option>
-                          <option value="Offer work experience or mentoring">Offer work experience or mentoring</option>
-                          <option value="Support pilot design">Support pilot design</option>
-                          <option value="Fund the next phase">Fund the next phase</option>
-                          <option value="Join a design workshop">Join a design workshop</option>
-                          <option value="Share relevant data or research">Share relevant data or research</option>
-                          <option value="Discuss strategic partnership">Discuss strategic partnership</option>
+                          {t.getInvolved.options.all.map((opt) => (
+                            <option key={opt.value} value={opt.value}>{opt.label}</option>
+                          ))}
                         </select>
                       </div>
 
                       {/* Message / anything useful to know */}
                       <div className="col-span-full space-y-1.5">
                         <label className="block text-[10px] uppercase font-sans tracking-wider text-[#2E536B] font-bold select-none">
-                          Message / anything useful to know
+                          {t.getInvolved.form.message}
                         </label>
                         <textarea
                           rows={4}
@@ -1406,7 +1220,7 @@ export default function App() {
                       className="w-full bg-[#2E536B] text-white py-4 text-xs font-semibold uppercase tracking-widest hover:bg-[#2E536B]/95 transition-all cursor-pointer flex items-center justify-center gap-2 shadow-sm rounded-lg disabled:opacity-50 disabled:cursor-not-allowed"
                     >
                       <Send className="w-3.5 h-3.5 text-[#FF9900]" />
-                      <span>{isFormSending ? "Submitting..." : "Submit Inquiry"}</span>
+                      <span>{isFormSending ? t.getInvolved.form.submittingBtn : t.getInvolved.form.submitBtn}</span>
                     </button>
                   </form>
                 </div>
@@ -1421,7 +1235,7 @@ export default function App() {
           <footer className="bg-white py-16 px-6 border-t border-[#969696]/30">
             <div className="max-w-4xl mx-auto text-center space-y-6">
               <p className="text-xs text-[#51615a] leading-relaxed max-w-lg mx-auto">
-                This is a public progress update on a place-based collaboration helping Wales connect growth, skills, employers, community insight and youth voice into clearer routes for young people. Return to our main site at{" "}
+                {t.footer.mainText} Return to our main site at{" "}
                 <a
                   href="https://oaha.uk"
                   target="_blank"
@@ -1445,7 +1259,7 @@ export default function App() {
                 <OahaLogo size={36} className="opacity-80 hover:opacity-100 transition-opacity" />
               </div>
               <p className="text-[10px] text-[#818e87] uppercase tracking-widest">
-                &copy; 2026 OAHA UK. Operational Update Initiative.
+                {t.footer.copyright} • {t.footer.bilingualNotice}
               </p>
             </div>
           </footer>
@@ -1468,10 +1282,10 @@ export default function App() {
             {/* Header */}
             <div className="flex items-start justify-between border-b border-[#969696]/10 pb-4">
               <div className="space-y-1">
-                <span className="text-[10px] font-mono font-bold text-[#FF9900] uppercase tracking-widest block">Shared Contribution Form</span>
-                <h3 className="text-xl font-normal text-[#2E536B] tracking-tight">Contribute to the ecosystem map</h3>
+                <span className="text-[10px] font-mono font-bold text-[#FF9900] uppercase tracking-widest block">{t.mapModal.tag}</span>
+                <h3 className="text-xl font-normal text-[#2E536B] tracking-tight">{t.mapModal.title}</h3>
                 <p className="text-xs text-[#51615a] font-sans">
-                  Answers will be sent directly to <strong className="text-[#2E536B]">info.oaha.uk@gmail.com</strong>
+                  {t.mapModal.recipientNote}
                 </p>
               </div>
               <button 
@@ -1489,9 +1303,9 @@ export default function App() {
                   <Check className="w-6 h-6" />
                 </div>
                 <div className="space-y-2">
-                  <h4 className="text-sm font-bold text-[#2E536B] uppercase tracking-wider">Contribution Sent Successfully!</h4>
+                  <h4 className="text-sm font-bold text-[#2E536B] uppercase tracking-wider">{t.mapModal.successTitle}</h4>
                   <p className="text-xs text-[#51615a] leading-relaxed">
-                    Thank you, <strong>{mapFormName}</strong>. Your choice <strong>"{mapContributionType}"</strong> has been sent directly to <strong>info.oaha.uk@gmail.com</strong>.
+                    {t.mapModal.successDesc(mapFormName, mapContributionType)}
                   </p>
                   
                   {isMapMockMode && (
@@ -1503,7 +1317,7 @@ export default function App() {
                   )}
 
                   <p className="text-xs text-[#51615a] leading-relaxed">
-                    If you require an instant backup copy or would like to send manually, you may use the button below.
+                    {t.getInvolved.success.instantBackupPrompt}
                   </p>
                 </div>
 
@@ -1525,7 +1339,7 @@ export default function App() {
                     }}
                     className="w-full py-3 bg-[#2E536B] hover:bg-[#2E536B]/95 text-white text-xs font-semibold uppercase tracking-widest transition-all rounded shadow-xs cursor-pointer text-center"
                   >
-                    Open Email Client (Backup)
+                    {t.mapModal.emailBackupBtn}
                   </button>
                   
                   <button
@@ -1540,7 +1354,7 @@ export default function App() {
                     }}
                     className="w-full py-2.5 border border-[#969696]/40 hover:bg-[#faf9f6]/45 text-[#51615a] text-xs font-semibold uppercase tracking-widest transition-all rounded cursor-pointer text-center"
                   >
-                    Submit Another Contribution
+                    {t.mapModal.submitAnotherBtn}
                   </button>
                 </div>
               </div>
@@ -1591,54 +1405,52 @@ export default function App() {
                 
                 {/* 1. Contribution Type */}
                 <div className="space-y-1.5">
-                  <label className="block text-[10px] uppercase font-mono tracking-wider text-[#2E536B] font-bold select-none">How would you like to contribute?</label>
+                  <label className="block text-[10px] uppercase font-mono tracking-wider text-[#2E536B] font-bold select-none">{t.mapModal.howContributeLabel}</label>
                   <select
                     value={mapContributionType}
                     onChange={(e) => setMapContributionType(e.target.value)}
                     className="w-full bg-slate-50 border border-[#969696]/30 p-2.5 text-xs focus:outline-none focus:border-[#2E536B] rounded-lg cursor-pointer font-sans text-[#51615a]"
                   >
-                    <option value="Add my organisation">Add my organisation</option>
-                    <option value="Share insight">Share insight</option>
-                    <option value="Suggest another organisation">Suggest another organisation</option>
-                    <option value="Highlight a gap">Highlight a gap</option>
-                    <option value="Offer data or evidence">Offer data or evidence</option>
+                    {t.mapModal.contributionTypes.map((ct) => (
+                      <option key={ct.value} value={ct.value}>{ct.label}</option>
+                    ))}
                   </select>
                 </div>
 
                 {/* 2. Full Name */}
                 <div className="space-y-1">
-                  <label className="block text-[10px] uppercase tracking-wider text-[#2E536B] font-semibold">Your Name</label>
+                  <label className="block text-[10px] uppercase tracking-wider text-[#2E536B] font-semibold">{t.mapModal.nameLabel}</label>
                   <input
                     type="text"
                     required
                     value={mapFormName}
                     onChange={(e) => setMapFormName(e.target.value)}
-                    placeholder="e.g. John Evans"
+                    placeholder={t.mapModal.namePlaceholder}
                     className="w-full bg-slate-50 border border-[#969696]/30 p-2.5 text-xs focus:outline-none focus:border-[#2E536B] rounded transition-all"
                   />
                 </div>
 
                 {/* 3. Contact Details */}
                 <div className="space-y-1">
-                  <label className="block text-[10px] uppercase tracking-wider text-[#2E536B] font-semibold">Contact Details</label>
+                  <label className="block text-[10px] uppercase tracking-wider text-[#2E536B] font-semibold">{t.mapModal.contactLabel}</label>
                   <input
                     type="text"
                     required
                     value={mapFormContact}
                     onChange={(e) => setMapFormContact(e.target.value)}
-                    placeholder="e.g. email@organisation.org.uk or 07123456789"
+                    placeholder={t.mapModal.contactPlaceholder}
                     className="w-full bg-slate-50 border border-[#969696]/30 p-2.5 text-xs focus:outline-none focus:border-[#2E536B] rounded transition-all"
                   />
                 </div>
 
                 {/* 4. Support details or message */}
                 <div className="space-y-1">
-                  <label className="block text-[10px] uppercase tracking-wider text-[#2E536B] font-semibold">Contribution Details / Message (Optional)</label>
+                  <label className="block text-[10px] uppercase tracking-wider text-[#2E536B] font-semibold">{t.mapModal.messageLabel}</label>
                   <textarea
                     rows={4}
                     value={mapFormMessage}
                     onChange={(e) => setMapFormMessage(e.target.value)}
-                    placeholder="Provide details about your organisation, the gap mapping, suggestions, or evidence..."
+                    placeholder={t.mapModal.messagePlaceholder}
                     className="w-full bg-slate-50 border border-[#969696]/30 p-2.5 text-xs focus:outline-none focus:border-[#2E536B] rounded transition-all"
                   />
                 </div>
@@ -1656,14 +1468,14 @@ export default function App() {
                     disabled={isMapSending}
                     className="flex-1 py-3 bg-[#2E536B] hover:bg-[#2E536B]/95 text-white text-xs font-semibold uppercase tracking-widest transition-all rounded shadow-xs cursor-pointer text-center disabled:opacity-50 disabled:cursor-not-allowed"
                   >
-                    {isMapSending ? "Sending..." : "Send Contribution"}
+                    {isMapSending ? t.mapModal.sendingBtn : t.mapModal.sendBtn}
                   </button>
                   <button
                     type="button"
                     onClick={() => setIsMapFormOpen(false)}
                     className="px-5 py-3 border border-[#969696]/30 hover:bg-[#faf9f6]/45 text-[#51615a] text-xs font-semibold uppercase tracking-widest transition-all rounded cursor-pointer"
                   >
-                    Cancel
+                    {t.mapModal.cancelBtn}
                   </button>
                 </div>
 
