@@ -283,16 +283,20 @@ export function AdmiralLogo() {
   );
 }
 
-export default function PartnerLogos() {
+import { translations, Language } from "../lib/translations";
+
+export default function PartnerLogos({ lang = "en" }: { lang?: Language }) {
+  const t = translations[lang].phase1.partnerLogos;
+
   return (
     <div className="w-full space-y-4 pt-4">
       <div className="flex flex-col space-y-2">
         <span className="text-xs sm:text-sm font-bold uppercase tracking-wider text-[#2E536B]">
-          Early collaboration partners and contributors
+          {t.title}
         </span>
         <div className="h-[2px] w-12 bg-[#3AB03A]/40" />
         <p className="text-sm sm:text-base text-[#51615a] leading-relaxed pt-1.5 max-w-3xl font-sans">
-          These partners are part of a wider growing network of employers, funders, educators, charities, community organisations and civic stakeholders contributing to the work.
+          {t.desc}
         </p>
         <div className="pt-2">
           <button
@@ -302,7 +306,7 @@ export default function PartnerLogos() {
             }}
             className="text-xs sm:text-sm text-[#2E536B] hover:text-[#2BB7BA] font-bold uppercase tracking-wider underline underline-offset-4 cursor-pointer transition-colors inline-flex items-center gap-1.5"
           >
-            <span>See how to get involved</span>
+            <span>{t.getInvolvedLink}</span>
             <span className="text-[#3AB03A]">&rarr;</span>
           </button>
         </div>
